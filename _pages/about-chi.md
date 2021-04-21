@@ -3,9 +3,9 @@ permalink: /about-chi/
 title: "关于我"
 excerpt: "About me"
 author_profile: true
-redirect_from: 
-  - /about-chi/
-  - /about-chi.html
+# redirect_from: 
+#  - /about-chi/
+#  - /about-chi.html
 ---
 
 我是[中国科学院计算技术研究所](http://www.ict.ac.cn/)在读的硕士，师从[赵晓芳老师](http://www.ict.cas.cn/sourcedb_2018_ict_cas/cn/jssrck/200909/t20090917_2496799.html)，研究方向是推荐系统和自然语言处理。
