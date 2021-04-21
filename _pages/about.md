@@ -14,7 +14,7 @@ Prior to ICT, I received my Bachelor's degree in Software Engineering from [Nort
 
 In particular, I am working on Self-Supervised Learning, Imitation Learning, Graph Representation Learning, and their application in Sequence Recommendation. Currently, I have collaborated with [Dr. Hongshen Chen](https://www.chenhongshen.com/) and Dr. Dongsheng Duan.
 
-I am now looking for a job of recommendation algorithm or recommendation advertisement. If you are interested, please <a href="yuan_xusun@163.com">contact me</a>.
+I am now looking for a job of recommendation algorithm or recommendation advertisement. If you are interested, please <a href="mailto:yuan_xusun@163.com">contact me</a>.
 
 <a href="about-chi.html">中文版</a>
 
