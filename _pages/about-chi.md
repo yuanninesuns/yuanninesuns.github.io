@@ -3,8 +3,8 @@ permalink: /about-chi/
 title: "关于我"
 excerpt: "About me"
 author_profile: true
-redirect_from: 
-  - /about-chi/
+# redirect_from: 
+#  - /about-chi/
 #  - /about-chi.html
 ---
 
