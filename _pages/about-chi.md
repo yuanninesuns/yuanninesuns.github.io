@@ -14,7 +14,7 @@ redirect_from:
 
 我目前专注于自监督学习、模仿学习、图表示学习及其在序列推荐上的应用，与[陈宏申博士](https://www.chenhongshen.com/)和段东圣博士合作。
 
-我正在寻找一份关于推荐算法或推荐广告的工作，如果您有意向，请<a href="mailto:yuan_xusun@163.com">联系我</a>。
+我正在寻找一份关于推荐算法或推荐广告的工作，如果您有意向，请 <a href="mailto:yuan_xusun@163.com">联系我</a>。
 
 <a href="/about.html">English Version</a>
 
