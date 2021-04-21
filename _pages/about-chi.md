@@ -4,8 +4,8 @@ title: "关于我"
 excerpt: "About me"
 author_profile: true
 redirect_from: 
-  - /about/
-  - /about.html
+  - /about-chi/
+  - /about-chi.html
 ---
 
 我是[中国科学院计算技术研究所](http://www.ict.ac.cn/)在读的硕士，师从[赵晓芳老师](http://www.ict.cas.cn/sourcedb_2018_ict_cas/cn/jssrck/200909/t20090917_2496799.html)，研究方向是推荐系统和自然语言处理。
@@ -14,7 +14,7 @@ redirect_from:
 
 我目前专注于自监督学习、模仿学习、图表示学习及其在序列推荐上的应用，正与[陈宏申博士](https://www.chenhongshen.com/)和段东圣博士合作。
 
-我正在寻找一份关于推荐算法或推荐广告的工作，如果您有意向，请<a href="yuanxu_sun@163.com">联系我</a>.
+我正在寻找一份关于推荐算法或推荐广告的工作，如果您有意向，请<a href="yuan_xusun@163.com">联系我</a>.
 
 <a href="/about.html">英文版</a>
 
