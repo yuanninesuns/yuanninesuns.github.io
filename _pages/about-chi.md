@@ -1,5 +1,5 @@
 ---
-permalink: /
+permalink: /about-chi/
 title: "关于我"
 excerpt: "About me"
 author_profile: true
@@ -16,7 +16,7 @@ redirect_from:
 
 我正在寻找一份关于推荐算法或推荐广告的工作，如果您有意向，请<a href="yuan_xusun@163.com">联系我</a>.
 
-<a href="/about.html">英文版</a>
+<a href="/about.html">English Version</a>
 
 
 
