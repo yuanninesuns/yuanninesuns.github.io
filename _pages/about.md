@@ -16,7 +16,7 @@ In particular, I am working on Self-Supervised Learning, Imitation Learning, Gra
 
 I am now looking for a job of recommendation algorithm or recommendation advertisement. If you are interested, please <a href="mailto:yuan_xusun@163.com">contact me</a>.
 
-<a href="/about-chi.html">中文版</a>
+<a href="/about-chi">中文版</a>
 
 
 
