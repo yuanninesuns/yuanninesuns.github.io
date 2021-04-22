@@ -32,10 +32,10 @@ Publications
 Internships
 ======
 - 
-- JD, Sequence Recommendation, 2021
-- Tencent, Text Matching, 2020
-- Aqiyi, Text Mining, 2019
-- Netease, Data Mining,2018
+- [JD, Data Science Lab](https://datascience.jd.com/), Sequence Recommendation, 2021
+- [Tencent, Tencent Marketing Solution](https://e.qq.com/technology/), Text Matching, 2020
+- [Aqiyi](https://www.iqiyi.com/), Text Mining, 2019
+- [Netease](http://you.163.com/), Data Mining, 2018
 
 Selected awards
 ======
