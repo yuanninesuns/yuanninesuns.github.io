@@ -8,6 +8,8 @@ author_profile: true
 #  - /about-chi.html
 ---
 
+关于我
+======
 我是[中国科学院计算技术研究所](http://www.ict.ac.cn/)在读的硕士，师从[赵晓芳老师](http://www.ict.cas.cn/sourcedb_2018_ict_cas/cn/jssrck/200909/t20090917_2496799.html)，推荐系统和自然语言处理是我的研究方向。
 
 在加入计算所之前，我曾在[东北大学](https://www.neu.edu.cn/)获得了软件工程学士学位，在[任涛教授](http://faculty.neu.edu.cn/swc/rent/)的实验室研究关于卷积神经网络的课题。在学术之外，我曾主持了一项名为“你好，城市”的公益项目，帮助学校附近回迁民改善物质和精神生活。

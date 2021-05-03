@@ -8,6 +8,9 @@ redirect_from:
   - /about.html
 ---
 
+About me
+======
+
 I am now a master student under the supervision of [Xiaofang Zhao](http://www.ict.cas.cn/sourcedb_2018_ict_cas/cn/jssrck/200909/t20090917_2496799.html) at [Institute of Computing Technology](http://www.ict.ac.cn/), [Chinese Academy of Sciences](https://www.ucas.ac.cn/) (ICT, CAS). My research focuses on Recommender System and Natural Language Processing. 
 
 Prior to ICT, I received my Bachelor's degree in Software Engineering from [Northeastern University](https://www.neu.edu.cn/). In the laboratory of [Prof. Ren Tao](http://faculty.neu.edu.cn/swc/rent/), I worked on Convolutional Neural Network in Seismic Wave Recognition. In addition to academic research, I leaded a social welfare project called "Hello, City" to help the demolition farmers improve their material and spiritual life.
