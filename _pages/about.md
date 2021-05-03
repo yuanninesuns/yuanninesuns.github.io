@@ -1,6 +1,6 @@
 ---
 permalink: /
-title: "Homepage"
+title: "About me"
 excerpt: "About me"
 author_profile: true
 redirect_from: 
@@ -8,8 +8,6 @@ redirect_from:
   - /about.html
 ---
 
-About me
-======
 
 I am now a master student under the supervision of [Xiaofang Zhao](http://www.ict.cas.cn/sourcedb_2018_ict_cas/cn/jssrck/200909/t20090917_2496799.html) at [Institute of Computing Technology](http://www.ict.ac.cn/), [Chinese Academy of Sciences](https://www.ucas.ac.cn/) (ICT, CAS). My research focuses on Recommender System and Natural Language Processing. 
 
