@@ -37,7 +37,8 @@ Internships
 Selected awards
 ======
 - Outstanding graduates of Liaoning Province, 2019
-- National first prize of national college students mathematical modeling competition, 2017
+- Outstanding Student Pacesetter, 2019
+- National first prize of National College Students Mathematical Modeling Competition, 2017
 - National Scholarship, 2016
 
 
