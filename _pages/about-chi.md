@@ -23,16 +23,16 @@ author_profile: true
 
 刊物
 ======
-- aaa
-- bbb
-- ccc
-- ddd
-- eee
+- ICAI-SR: Item Categorical Attribute Integrated Sequential Recommendation
+**Xu Yuan**, Dongsheng Duan, Lingling Tong, Lei Shi, and Cheng Zhang.
+In SIGIR2021.
+- Improving Sequential Recommendation Consistency with Self-Supervised Imitation
+**Xu Yuan**, Hongshen Chen, Yonghao Song, Xiaofang Zhao, and Zhuoye Ding.
+In IJCAI2021.
 
 
 实习
 ======
-- 
 - [京东，数据科学实验室](https://datascience.jd.com/)，序列推荐，2021
 - [腾讯，广点通](https://e.qq.com/technology/)，文本匹配，2020
 - [爱奇艺，商业智能部](https://www.iqiyi.com/)，文本挖掘，2019

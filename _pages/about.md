@@ -23,15 +23,16 @@ I am now looking for a job of recommendation algorithm or recommendation adverti
 
 Publications
 ======
-- aaa
-- bbb
-- ccc
-- ddd
-- eee
+- ICAI-SR: Item Categorical Attribute Integrated Sequential Recommendation
+**Xu Yuan**, Dongsheng Duan, Lingling Tong, Lei Shi, and Cheng Zhang.
+In SIGIR2021.
+- Improving Sequential Recommendation Consistency with Self-Supervised Imitation
+**Xu Yuan**, Hongshen Chen, Yonghao Song, Xiaofang Zhao, and Zhuoye Ding.
+In IJCAI2021.
+
 
 Internships
 ======
-- 
 - [JD, Data Science Lab](https://datascience.jd.com/), Sequence Recommendation, 2021
 - [Tencent, Tencent Marketing Solution](https://e.qq.com/technology/), Text Matching, 2020
 - [Aqiyi](https://www.iqiyi.com/), Text Mining, 2019
