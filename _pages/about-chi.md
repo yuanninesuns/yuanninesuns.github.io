@@ -1,6 +1,6 @@
 ---
 permalink: /about-chi/
-title: "关于我"
+title: "主页"
 excerpt: "About me"
 author_profile: true
 # redirect_from: 
