@@ -13,7 +13,7 @@ I am now a master student under the supervision of [Xiaofang Zhao](http://www.ic
 
 Prior to ICT, I received my Bachelor's degree in Software Engineering from [Northeastern University](https://www.neu.edu.cn/). In the laboratory of [Prof. Ren Tao](http://faculty.neu.edu.cn/swc/rent/), I worked on Convolutional Neural Network in Seismic Wave Recognition. In addition to academic research, I leaded a social welfare project called "Hello, City" to help the demolition farmers improve their material and spiritual life.
 
-Currently, I am working on Self-Supervised Learning, Imitation Learning, Graph Representation Learning, and their application in Sequence Recommendation. I have collaborated with [Dr. Hongshen Chen](https://www.chenhongshen.com/) and Dr. Dongsheng Duan.
+Currently, I am working on Self-Supervised Learning, Imitation Learning, Graph Representation Learning, and their application in Ranking. I have collaborated with [Dr. Hongshen Chen](https://www.chenhongshen.com/) and Dr. Dongsheng Duan.
 
 I am now looking for a job of recommendation algorithm or recommendation advertisement algorithm. If you are interested, please <a href="mailto:yuan_xusun@163.com">contact me</a>.
 
