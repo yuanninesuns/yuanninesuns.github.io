@@ -28,13 +28,13 @@ Publications
 
   **Xu Yuan**, Dongsheng Duan, Lingling Tong, Lei Shi, and Cheng Zhang. 
 
-  SIGIR 2021, CCF A
+  SIGIR 2021
 
 - Improving Sequential Recommendation Consistency with Self-Supervised Imitation. 
 
   **Xu Yuan**, Hongshen Chen, Yonghao Song, Xiaofang Zhao, and Zhuoye Ding. 
 
-  IJCAI 2021, CCF A
+  IJCAI 2021
 
 
 Internships
