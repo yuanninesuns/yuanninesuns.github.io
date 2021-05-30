@@ -36,7 +36,7 @@ author_profile: true
 实习
 ======
 - [阿里巴巴，淘宝首页猜你喜欢](https://www.taobao.com/), 推荐算法, 2021
-- [京东，数据科学实验室](https://datascience.jd.com/)，序列推荐，2021
+- [京东，数据科学实验室](https://datascience.jd.com/)，序列推荐，2020
 - [腾讯，广点通](https://e.qq.com/technology/)，文本匹配，2020
 - [爱奇艺，商业智能部](https://www.iqiyi.com/)，文本挖掘，2019
 - [网易，严选事业部](http://you.163.com/)，数据分析，2018
