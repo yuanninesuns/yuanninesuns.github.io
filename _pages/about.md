@@ -39,16 +39,18 @@ Publications
 
 Internships
 ======
-- [JD, Data Science Lab](https://datascience.jd.com/), Sequence Recommendation, 2021
+- [Alibaba, Taobao Homepage Recommendation Team](https://www.taobao.com/), Recommendation Algorithm, 2021
+- [JD, Data Science Lab](https://datascience.jd.com/), Sequence Recommendation, 2020
 - [Tencent, Tencent Marketing Solution](https://e.qq.com/technology/), Text Matching, 2020
 - [Aqiyi](https://www.iqiyi.com/), Text Mining, 2019
 - [Netease](http://you.163.com/), Data Mining, 2018
 
 Selected awards
 ======
+- National Scholarship, 2016
+- National first prize of National College Students Mathematical Modeling Competition, 2017
 - Outstanding graduates of Liaoning Province, 2019
 - Outstanding Student Pacesetter, 2019
-- National first prize of National College Students Mathematical Modeling Competition, 2017
-- National Scholarship, 2016
+
 
 
