@@ -40,6 +40,14 @@
     "src": "articles/bookmovie/book-01.md"
   },
   {
+    "title": "读史铁生",
+    "category": "bookmovie",
+    "date": "2026-10-03",
+    "excerpt": "关于史铁生，也关于命运、苦难、自由与人的精神世界……",
+    "tags": ["精神", "体验"],
+    "src": "articles/bookmovie/shitiesheng-01.md"
+  },
+  {
     "title": "「鲸」的片单",
     "category": "bookmovie",
     "date": "2026-10-03",
