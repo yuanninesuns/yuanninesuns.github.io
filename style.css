@@ -209,6 +209,11 @@ a { color: inherit; text-decoration: none; }
   color: var(--muted);
   border-top: 1px solid var(--border);
 }
+.site-counter {
+  margin-top: 8px;
+  font-size: .78rem;
+  color: #bbb;
+}
 
 /* ---- Article Page ---- */
 .article-page { max-width: 720px; margin: 60px auto; padding: 0 24px 80px; }
