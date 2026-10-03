@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>文章 · 鲸的世界</title>
-  <link rel="stylesheet" href="style.css?v=20261003-asset-chart" />
+  <link rel="stylesheet" href="style.css?v=20261003-asset-labels" />
 </head>
 <body>
 
@@ -275,18 +275,12 @@
 
     function buildAssetAllocationChart(data) {
       const colors = ['#4a7c59', '#bf8a3a', '#d7ad4b', '#5b6abf', '#8a6bbf', '#3a9fbf', '#9a9a9a', '#7f6f5f'];
-      const totalTarget = data.reduce((sum, item) => sum + Number(item.target || 0), 0) || 1;
-      const totalActual = data.reduce((sum, item) => sum + Number(item.actual || 0), 0) || 1;
-
       const withColor = data.map((item, index) => ({
         ...item,
         color: colors[index % colors.length],
         target: Number(item.target || 0),
         actual: Number(item.actual || 0)
       }));
-
-      const targetPie = buildPieStyle(withColor, 'target', totalTarget);
-      const actualPie = buildPieStyle(withColor, 'actual', totalActual);
 
       const legendRows = withColor.map(item => {
         const diff = item.actual - item.target;
@@ -306,11 +300,11 @@
           <div class="asset-chart-grid">
             <div class="asset-pie-panel">
               <h3>目标配置</h3>
-              <div class="asset-pie" style="background:${targetPie}"></div>
+              ${buildPieSvg(withColor, 'target')}
             </div>
             <div class="asset-pie-panel">
               <h3>实际配置</h3>
-              <div class="asset-pie" style="background:${actualPie}"></div>
+              ${buildPieSvg(withColor, 'actual')}
             </div>
           </div>
           <div class="asset-legend-wrap">
@@ -324,18 +318,59 @@
         </section>`;
     }
 
-    function buildPieStyle(data, field, total) {
-      let start = 0;
+    function buildPieSvg(data, field) {
+      const total = data.reduce((sum, item) => sum + Number(item[field] || 0), 0) || 1;
+      let startAngle = -90;
+      const cx = 120;
+      const cy = 120;
+      const radius = 92;
+      const labelRadius = 58;
+
       const slices = data
         .filter(item => item[field] > 0)
         .map(item => {
-          const end = start + (item[field] / total) * 100;
-          const slice = `${item.color} ${start}% ${end}%`;
-          start = end;
-          return slice;
-        });
+          const value = Number(item[field]);
+          const angle = (value / total) * 360;
+          const endAngle = startAngle + angle;
+          const path = describeArc(cx, cy, radius, startAngle, endAngle);
+          const midAngle = startAngle + angle / 2;
+          const label = polarToCartesian(cx, cy, labelRadius, midAngle);
+          const percent = Math.round((value / total) * 100);
+          const showLabel = percent >= 4;
+          startAngle = endAngle;
 
-      return slices.length ? `conic-gradient(${slices.join(', ')})` : '#eee';
+          return `
+            <g>
+              <path d="${path}" fill="${item.color}"></path>
+              ${showLabel ? `
+                <text x="${label.x}" y="${label.y - 3}" text-anchor="middle" class="asset-pie-label asset-pie-name">${item.name}</text>
+                <text x="${label.x}" y="${label.y + 12}" text-anchor="middle" class="asset-pie-label asset-pie-value">${percent}%</text>
+              ` : ''}
+            </g>`;
+        }).join('');
+
+      return `<svg class="asset-pie" viewBox="0 0 240 240" role="img" aria-label="资产配置饼图">${slices}</svg>`;
+    }
+
+    function polarToCartesian(cx, cy, radius, angleInDegrees) {
+      const angleInRadians = angleInDegrees * Math.PI / 180;
+      return {
+        x: cx + radius * Math.cos(angleInRadians),
+        y: cy + radius * Math.sin(angleInRadians)
+      };
+    }
+
+    function describeArc(cx, cy, radius, startAngle, endAngle) {
+      const start = polarToCartesian(cx, cy, radius, startAngle);
+      const end = polarToCartesian(cx, cy, radius, endAngle);
+      const largeArcFlag = endAngle - startAngle <= 180 ? 0 : 1;
+
+      return [
+        `M ${cx} ${cy}`,
+        `L ${start.x} ${start.y}`,
+        `A ${radius} ${radius} 0 ${largeArcFlag} 1 ${end.x} ${end.y}`,
+        'Z'
+      ].join(' ');
     }
 
     function buildJourneyTable(data) {

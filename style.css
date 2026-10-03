@@ -363,11 +363,27 @@ button { font: inherit; }
   letter-spacing: .08em;
 }
 .asset-pie {
-  width: 168px;
-  height: 168px;
-  border-radius: 50%;
-  box-shadow: inset 0 0 0 10px rgba(255,255,255,.55), 0 8px 24px rgba(0,0,0,.08);
+  width: 240px;
+  height: 240px;
+  overflow: visible;
+  filter: drop-shadow(0 8px 20px rgba(0,0,0,.08));
 }
+.asset-pie path {
+  stroke: var(--surface);
+  stroke-width: 1.5;
+}
+.asset-pie-label {
+  pointer-events: none;
+  fill: #fff;
+  paint-order: stroke;
+  stroke: rgba(0, 0, 0, .28);
+  stroke-width: 2px;
+  stroke-linejoin: round;
+  font-family: inherit;
+  font-weight: 700;
+}
+.asset-pie-name { font-size: 11px; }
+.asset-pie-value { font-size: 10px; opacity: .95; }
 .asset-legend-wrap { overflow-x: auto; }
 .asset-legend {
   width: 100%;
@@ -408,5 +424,5 @@ button { font: inherit; }
   .cat-btn { padding: 5px 13px; }
   .sort-control { justify-content: flex-end; align-self: flex-end; }
   .asset-chart-grid { grid-template-columns: 1fr; }
-  .asset-pie { width: 150px; height: 150px; }
+  .asset-pie { width: 210px; height: 210px; }
 }
