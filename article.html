@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>文章 · 鲸的世界</title>
-  <link rel="stylesheet" href="style.css?v=20261003-asset-elbow-lines" />
+  <link rel="stylesheet" href="style.css?v=20261003-asset-label-above-line" />
 </head>
 <body>
 
@@ -351,7 +351,7 @@
             <g>
               <path d="${path}" fill="${item.color}"></path>
               <polyline class="asset-label-line" points="${lineStart.x},${lineStart.y} ${elbow.x},${elbow.y} ${lineEnd.x},${lineEnd.y}"></polyline>
-              <text x="${lineEnd.x + labelOffset}" y="${lineEnd.y + 4}" text-anchor="${labelAnchor}" class="asset-pie-label">${item.name} ${percent}%</text>
+              <text x="${lineEnd.x + labelOffset}" y="${lineEnd.y - 6}" text-anchor="${labelAnchor}" class="asset-pie-label">${item.name} ${percent}%</text>
             </g>`;
         }).join('');
 
