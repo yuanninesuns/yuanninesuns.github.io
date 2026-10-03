@@ -1,8 +1,7 @@
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
 const catLabels = {
-  finance: '理财', career: '职场', love: '感情',
-  book: '书评', film: '影评', essay: '随笔'
+  finance: '理财', journey: '旅途', emotion: '情感', bookmovie: '书影'
 };
 
 function parseFrontmatter(text) {

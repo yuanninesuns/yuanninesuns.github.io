@@ -15,12 +15,10 @@
   --accent:    #2d2d2d;
 
   /* category colours */
-  --c-finance: #4a7c59;
-  --c-career:  #5b6abf;
-  --c-love:    #bf5b6a;
-  --c-book:    #8a6bbf;
-  --c-film:    #bf8a3a;
-  --c-essay:   #3a9fbf;
+  --c-finance:   #4a7c59;
+  --c-journey:   #5b6abf;
+  --c-emotion:   #bf5b6a;
+  --c-bookmovie: #8a6bbf;
 
   --radius: 12px;
   --gap: 24px;
@@ -182,12 +180,10 @@ a { color: inherit; text-decoration: none; }
   color: #fff;
   letter-spacing: .04em;
 }
-.cat-badge.finance { background: var(--c-finance); }
-.cat-badge.career  { background: var(--c-career); }
-.cat-badge.love    { background: var(--c-love); }
-.cat-badge.book    { background: var(--c-book); }
-.cat-badge.film    { background: var(--c-film); }
-.cat-badge.essay   { background: var(--c-essay); }
+.cat-badge.finance   { background: var(--c-finance); }
+.cat-badge.journey   { background: var(--c-journey); }
+.cat-badge.emotion   { background: var(--c-emotion); }
+.cat-badge.bookmovie { background: var(--c-bookmovie); }
 
 /* ---- Philosophy Tags ---- */
 .tag-row { display: flex; flex-wrap: wrap; gap: 6px; }
