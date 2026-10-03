@@ -1,6 +1,6 @@
 // ── Site metadata ─────────────────────────────────────────────────────────────
 
-const ARTICLE_INDEX_URL = 'articles.json?v=20261003-pin-ui';
+const ARTICLE_INDEX_URL = 'articles.json?v=20261003-category-pin';
 
 const CATEGORY_LABELS = {
   finance: '理财',
@@ -46,6 +46,8 @@ function normalizeArticle(article, index = 0) {
     tags: Array.isArray(article.tags) ? article.tags : [],
     src: article.src || '',
     pinned: Boolean(article.pinned),
+    categoryPinned: Boolean(article.categoryPinned),
+    categoryPinOrder: Number.isFinite(Number(article.categoryPinOrder)) ? Number(article.categoryPinOrder) : 999,
     originalIndex: index
   };
 }
@@ -55,7 +57,15 @@ function getVisibleArticles() {
     .filter(article => state.currentCategory === 'all' || article.category === state.currentCategory)
     .slice()
     .sort((a, b) => {
-      if (a.pinned !== b.pinned) return a.pinned ? -1 : 1;
+      const inCategoryView = state.currentCategory !== 'all';
+      const aPinned = inCategoryView ? a.categoryPinned : a.pinned;
+      const bPinned = inCategoryView ? b.categoryPinned : b.pinned;
+
+      if (aPinned !== bPinned) return aPinned ? -1 : 1;
+      if (aPinned && bPinned) {
+        const orderDiff = a.categoryPinOrder - b.categoryPinOrder;
+        if (orderDiff !== 0) return orderDiff;
+      }
 
       const diff = parseDateValue(b.date) - parseDateValue(a.date);
       if (diff === 0) return a.originalIndex - b.originalIndex;
@@ -68,10 +78,11 @@ function getVisibleArticles() {
 function renderArticleCard(article) {
   const label = CATEGORY_LABELS[article.category] || article.category;
   const href = `article.html?src=${encodeURIComponent(article.src)}`;
-  const pinnedBadge = article.pinned ? '<span class="pin-badge" title="置顶" aria-label="置顶文章">★</span>' : '';
+  const isPinnedHere = state.currentCategory === 'all' ? article.pinned : article.categoryPinned;
+  const pinnedBadge = isPinnedHere ? '<span class="pin-badge" title="置顶" aria-label="置顶文章">★</span>' : '';
 
   return `
-    <article class="card${article.pinned ? ' pinned' : ''}" data-cat="${escapeHtml(article.category)}">
+    <article class="card${isPinnedHere ? ' pinned' : ''}" data-cat="${escapeHtml(article.category)}">
       ${pinnedBadge}
       <a href="${href}" class="card-link">
         <div class="card-meta">

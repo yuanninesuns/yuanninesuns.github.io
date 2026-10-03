@@ -12,6 +12,8 @@
     "title": "「鲸」的交易体系",
     "category": "finance",
     "date": "2026-10-03",
+    "categoryPinned": true,
+    "categoryPinOrder": 1,
     "excerpt": "只买低位，一看基本面错杀，二看想象空间……",
     "tags": ["探索", "财富"],
     "src": "articles/finance/finance-01.md"
@@ -44,6 +46,8 @@
     "title": "「鲸」的书单",
     "category": "bookmovie",
     "date": "2026-10-03",
+    "categoryPinned": true,
+    "categoryPinOrder": 1,
     "excerpt": "扶轮问路、股票大作手回忆录、时间的玫瑰、沧浪之水、悉达多……",
     "tags": ["精神", "体验"],
     "src": "articles/bookmovie/book-01.md"
@@ -60,6 +64,8 @@
     "title": "「鲸」的片单",
     "category": "bookmovie",
     "date": "2026-10-03",
+    "categoryPinned": true,
+    "categoryPinOrder": 2,
     "excerpt": "纯爽的电影就不推荐了，下面列举一些看过后会有思考的电影……",
     "tags": ["精神", "体验"],
     "src": "articles/bookmovie/film-01.md"
