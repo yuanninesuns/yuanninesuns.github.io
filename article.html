@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>文章 · 鲸的世界</title>
-  <link rel="stylesheet" href="style.css?v=20261003-asset-callouts" />
+  <link rel="stylesheet" href="style.css?v=20261003-asset-elbow-lines" />
 </head>
 <body>
 
@@ -326,7 +326,6 @@
       const radius = 78;
       const lineStartRadius = 82;
       const lineEndRadius = 112;
-      const labelRadius = 124;
 
       const slices = data
         .filter(item => item[field] > 0)
@@ -337,18 +336,22 @@
           const path = describeArc(cx, cy, radius, startAngle, endAngle);
           const midAngle = startAngle + angle / 2;
           const lineStart = polarToCartesian(cx, cy, lineStartRadius, midAngle);
-          const lineEnd = polarToCartesian(cx, cy, lineEndRadius, midAngle);
-          const label = polarToCartesian(cx, cy, labelRadius, midAngle);
+          const elbow = polarToCartesian(cx, cy, lineEndRadius, midAngle);
+          const isRightSide = elbow.x >= cx;
+          const lineEnd = {
+            x: elbow.x + (isRightSide ? 34 : -34),
+            y: elbow.y
+          };
           const percent = Math.round((value / total) * 100);
-          const labelAnchor = label.x >= cx ? 'start' : 'end';
-          const labelOffset = label.x >= cx ? 6 : -6;
+          const labelAnchor = isRightSide ? 'start' : 'end';
+          const labelOffset = isRightSide ? 6 : -6;
           startAngle = endAngle;
 
           return `
             <g>
               <path d="${path}" fill="${item.color}"></path>
-              <polyline class="asset-label-line" points="${lineStart.x},${lineStart.y} ${lineEnd.x},${lineEnd.y} ${label.x},${label.y}"></polyline>
-              <text x="${label.x + labelOffset}" y="${label.y + 4}" text-anchor="${labelAnchor}" class="asset-pie-label">${item.name} ${percent}%</text>
+              <polyline class="asset-label-line" points="${lineStart.x},${lineStart.y} ${elbow.x},${elbow.y} ${lineEnd.x},${lineEnd.y}"></polyline>
+              <text x="${lineEnd.x + labelOffset}" y="${lineEnd.y + 4}" text-anchor="${labelAnchor}" class="asset-pie-label">${item.name} ${percent}%</text>
             </g>`;
         }).join('');
 
