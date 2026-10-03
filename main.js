@@ -1,116 +1,120 @@
-// ── Helpers ──────────────────────────────────────────────────────────────────
+// ── Site metadata ─────────────────────────────────────────────────────────────
 
-const catLabels = {
-  finance: '理财', journey: '旅途', emotion: '情感', bookmovie: '书影'
+const ARTICLE_INDEX_URL = 'articles.json?v=20261003-articles-json';
+
+const CATEGORY_LABELS = {
+  finance: '理财',
+  journey: '旅途',
+  emotion: '情感',
+  bookmovie: '书影'
 };
 
-function parseFrontmatter(text) {
-  const match = text.match(/^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/);
-  if (!match) return { meta: {}, body: text };
-  const meta = {};
-  match[1].split('\n').forEach(line => {
-    const colonIdx = line.indexOf(':');
-    if (colonIdx === -1) return;
-    const key = line.slice(0, colonIdx).trim();
-    let val = line.slice(colonIdx + 1).trim();
-    if ((val.startsWith('"') && val.endsWith('"')) ||
-        (val.startsWith("'") && val.endsWith("'"))) {
-      val = val.slice(1, -1);
-    }
-    if (val.startsWith('[') && val.endsWith(']')) {
-      val = val.slice(1, -1).split(',').map(v => v.trim().replace(/['"]/g, ''));
-    }
-    meta[key] = val;
-  });
-  return { meta, body: match[2] };
+// ── Utilities ────────────────────────────────────────────────────────────────
+
+function escapeHtml(value = '') {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 }
 
-// Extract plain-text excerpt from markdown body (strip markdown syntax)
-function extractExcerpt(body, maxLen = 60) {
-  const plain = body
-    .replace(/```[\s\S]*?```/g, '') // fenced code blocks
-    .replace(/^#{1,6}\s+/gm, '')   // headings
-    .replace(/>\s*/gm, '')          // blockquotes
-    .replace(/`{1,3}[^`]*`{1,3}/g, '') // inline/block code
-    .replace(/!\[.*?\]\(.*?\)/g, '') // images
-    .replace(/\[([^\]]+)\]\(.*?\)/g, '$1') // links → text
-    .replace(/[*_~]+/g, '')         // bold/italic/strike
-    .replace(/\n+/g, ' ')           // newlines → space
-    .trim();
-  if (plain.length <= maxLen) return plain;
-  return plain.slice(0, maxLen).replace(/[，。？！、\s]+$/, '') + '……';
+async function fetchJson(url) {
+  const resp = await fetch(url, { cache: 'no-store' });
+  if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+  return resp.json();
 }
 
-// ── Load cards from Markdown ──────────────────────────────────────────────────
+function normalizeArticle(article) {
+  return {
+    title: article.title || '无题',
+    category: article.category || '',
+    date: article.date || '',
+    excerpt: article.excerpt || '',
+    tags: Array.isArray(article.tags) ? article.tags : [],
+    src: article.src || ''
+  };
+}
 
-async function loadCard(card) {
-  const src = card.dataset.src;
-  if (!src) return;
+// ── Rendering ────────────────────────────────────────────────────────────────
 
-  // file:// protocol — fetch will fail, keep static HTML as-is
-  if (location.protocol === 'file:') return;
+function renderArticleCard(article) {
+  const item = normalizeArticle(article);
+  const label = CATEGORY_LABELS[item.category] || item.category;
+  const href = `article.html?src=${encodeURIComponent(item.src)}`;
 
-  let text;
-  try {
-    const resp = await fetch(src, { cache: 'no-store' });
-    if (!resp.ok) return;
-    text = await resp.text();
-  } catch {
+  return `
+    <article class="card" data-cat="${escapeHtml(item.category)}">
+      <a href="${href}" class="card-link">
+        <div class="card-meta">
+          <span class="cat-badge ${escapeHtml(item.category)}">${escapeHtml(label)}</span>
+          <span class="date">${escapeHtml(item.date)}</span>
+        </div>
+        <h2 class="card-title">${escapeHtml(item.title)}</h2>
+        <p class="card-excerpt">${escapeHtml(item.excerpt)}</p>
+        <div class="tag-row">
+          ${item.tags.map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join('')}
+        </div>
+      </a>
+    </article>`;
+}
+
+function renderArticles(articles) {
+  const grid = document.getElementById('articleGrid');
+  if (!grid) return;
+
+  if (!articles.length) {
+    grid.innerHTML = '<p class="article-loading">暂无文章</p>';
     return;
   }
 
-  const { meta, body } = parseFrontmatter(text);
-  const title   = meta.title   || '';
-  const cat     = meta.category || card.dataset.cat || '';
-  const date    = meta.date    || '';
-  const tags    = Array.isArray(meta.tags) ? meta.tags : (meta.tags ? [meta.tags] : []);
-  const fallbackExcerpt = card.dataset.excerpt || card.querySelector('.card-excerpt')?.textContent.trim() || '';
-  const excerpt = meta.excerpt || extractExcerpt(body) || fallbackExcerpt;
-  const label   = catLabels[cat] || cat;
-  const href    = `article.html?src=${src}`;
-
-  // Sync data-cat in case it differs
-  card.dataset.cat = cat;
-
-  card.innerHTML = `
-    <a href="${href}" class="card-link">
-      <div class="card-meta">
-        <span class="cat-badge ${cat}">${label}</span>
-        <span class="date">${date}</span>
-      </div>
-      <h2 class="card-title">${title}</h2>
-      <p class="card-excerpt">${excerpt}</p>
-      <div class="tag-row">
-        ${tags.map(t => `<span class="tag">${t}</span>`).join('')}
-      </div>
-    </a>`;
+  grid.innerHTML = articles.map(renderArticleCard).join('');
 }
 
-// ── Category filter ───────────────────────────────────────────────────────────
+function renderLoadError(message) {
+  const grid = document.getElementById('articleGrid');
+  if (!grid) return;
+
+  grid.innerHTML = `
+    <div class="article-loading">
+      <p>文章列表加载失败：${escapeHtml(message)}</p>
+      <p style="margin-top: 10px; font-size: .86rem; color: #999;">
+        如果是在本地直接打开文件，请使用 <code>python3 -m http.server 8080</code> 启动本地服务。
+      </p>
+    </div>`;
+}
+
+// ── Category filter ──────────────────────────────────────────────────────────
 
 function initFilter() {
   const buttons = document.querySelectorAll('.cat-btn');
-  const cards   = document.querySelectorAll('.card');
 
   buttons.forEach(btn => {
     btn.addEventListener('click', () => {
       buttons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
 
-      const cat = btn.dataset.cat;
-      cards.forEach(card => {
-        const visible = cat === 'all' || card.dataset.cat === cat;
+      const selectedCategory = btn.dataset.cat;
+      document.querySelectorAll('.card').forEach(card => {
+        const visible = selectedCategory === 'all' || card.dataset.cat === selectedCategory;
         card.classList.toggle('hidden', !visible);
       });
     });
   });
 }
 
-// ── Init ──────────────────────────────────────────────────────────────────────
+// ── Init ─────────────────────────────────────────────────────────────────────
 
-document.addEventListener('DOMContentLoaded', () => {
-  const cards = document.querySelectorAll('.card[data-src]');
-  Promise.all([...cards].map(loadCard)).then(initFilter);
-  // Also init filter immediately so static fallback works while loading
-  initFilter();
-});
+async function initHomePage() {
+  try {
+    const articles = await fetchJson(ARTICLE_INDEX_URL);
+    renderArticles(articles.map(normalizeArticle));
+    initFilter();
+  } catch (e) {
+    renderLoadError(e.message);
+    initFilter();
+  }
+}
+
+document.addEventListener('DOMContentLoaded', initHomePage);

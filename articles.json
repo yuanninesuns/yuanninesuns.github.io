@@ -1,0 +1,50 @@
+[
+  {
+    "title": "「鲸」的交易体系",
+    "category": "finance",
+    "date": "2026-10-03",
+    "excerpt": "只买低位，一看基本面错杀，二看想象空间……",
+    "tags": ["探索", "财富"],
+    "src": "articles/finance/finance-01.md"
+  },
+  {
+    "title": "一句话",
+    "category": "journey",
+    "date": "2026-10-03",
+    "excerpt": "守得云开见月明、不要怕，不要悔、流水不争先……",
+    "tags": ["修炼", "精神"],
+    "src": "articles/journey/career-01.md"
+  },
+  {
+    "title": "阿邦的奶奶",
+    "category": "emotion",
+    "date": "2020-01-11",
+    "excerpt": "阿邦的奶奶是两年前过世的，死于胃癌。奶奶家有一辆比阿邦年纪还大一轮的自行车……",
+    "tags": ["体验", "精神", "修炼"],
+    "src": "articles/emotion/love-01.md"
+  },
+  {
+    "title": "岁月",
+    "category": "emotion",
+    "date": "2015-08-16",
+    "excerpt": "老屋稀松的暗影已在尘埃下伫立了几十个春秋，斑驳的墙纸也片片散落……",
+    "tags": ["体验", "精神"],
+    "src": "articles/emotion/essay-01.md"
+  },
+  {
+    "title": "「鲸」的书单",
+    "category": "bookmovie",
+    "date": "2026-10-03",
+    "excerpt": "扶轮问路、股票大作手回忆录、时间的玫瑰、沧浪之水、悉达多……",
+    "tags": ["精神", "体验"],
+    "src": "articles/bookmovie/book-01.md"
+  },
+  {
+    "title": "「鲸」的片单",
+    "category": "bookmovie",
+    "date": "2026-10-03",
+    "excerpt": "纯爽的电影就不推荐了，下面列举一些看过后会有思考的电影……",
+    "tags": ["精神", "体验"],
+    "src": "articles/bookmovie/film-01.md"
+  }
+]
