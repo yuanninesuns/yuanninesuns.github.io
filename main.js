@@ -1,6 +1,6 @@
 // ── Site metadata ─────────────────────────────────────────────────────────────
 
-const ARTICLE_INDEX_URL = 'articles.json?v=20261003-pinned-sort';
+const ARTICLE_INDEX_URL = 'articles.json?v=20261003-pin-ui';
 
 const CATEGORY_LABELS = {
   finance: '理财',
@@ -68,16 +68,17 @@ function getVisibleArticles() {
 function renderArticleCard(article) {
   const label = CATEGORY_LABELS[article.category] || article.category;
   const href = `article.html?src=${encodeURIComponent(article.src)}`;
-  const pinnedBadge = article.pinned ? '<span class="pin-badge">置顶</span>' : '';
+  const pinnedBadge = article.pinned ? '<span class="pin-badge" title="置顶" aria-label="置顶文章">★</span>' : '';
 
   return `
-    <article class="card" data-cat="${escapeHtml(article.category)}">
+    <article class="card${article.pinned ? ' pinned' : ''}" data-cat="${escapeHtml(article.category)}">
+      ${pinnedBadge}
       <a href="${href}" class="card-link">
         <div class="card-meta">
           <span class="cat-badge ${escapeHtml(article.category)}">${escapeHtml(label)}</span>
           <span class="date">${escapeHtml(article.date)}</span>
         </div>
-        <h2 class="card-title">${pinnedBadge}${escapeHtml(article.title)}</h2>
+        <h2 class="card-title">${escapeHtml(article.title)}</h2>
         <p class="card-excerpt">${escapeHtml(article.excerpt)}</p>
         <div class="tag-row">
           ${article.tags.map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join('')}
