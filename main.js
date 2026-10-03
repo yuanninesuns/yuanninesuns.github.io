@@ -64,7 +64,7 @@ async function loadCard(card) {
   const cat     = meta.category || card.dataset.cat || '';
   const date    = meta.date    || '';
   const tags    = Array.isArray(meta.tags) ? meta.tags : (meta.tags ? [meta.tags] : []);
-  const fallbackExcerpt = card.querySelector('.card-excerpt')?.textContent.trim() || '';
+  const fallbackExcerpt = card.dataset.excerpt || card.querySelector('.card-excerpt')?.textContent.trim() || '';
   const excerpt = meta.excerpt || extractExcerpt(body) || fallbackExcerpt;
   const label   = catLabels[cat] || cat;
   const href    = `article.html?src=${src}`;
