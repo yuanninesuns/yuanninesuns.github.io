@@ -1,0 +1,260 @@
+/* ========================================
+   Y的世界 — Global Stylesheet
+   参考：Notion-style minimalism × 日系杂志排版
+   ======================================== */
+
+/* ---- Reset & Base ---- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #faf9f7;
+  --surface:   #ffffff;
+  --border:    #e8e4de;
+  --text:      #1a1a1a;
+  --muted:     #888;
+  --accent:    #2d2d2d;
+
+  /* category colours */
+  --c-finance: #4a7c59;
+  --c-career:  #5b6abf;
+  --c-love:    #bf5b6a;
+  --c-book:    #8a6bbf;
+  --c-film:    #bf8a3a;
+
+  --radius: 12px;
+  --gap: 24px;
+  --max-w: 1080px;
+}
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Georgia', 'Noto Serif SC', serif;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ---- Site Header ---- */
+.site-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 48px 24px 36px;
+  text-align: center;
+}
+.header-inner { max-width: var(--max-w); margin: 0 auto; }
+
+.site-title {
+  display: block;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+.site-title:hover { opacity: .75; }
+
+.site-philosophy {
+  font-size: .95rem;
+  color: var(--muted);
+  letter-spacing: .18em;
+  text-transform: none;
+}
+
+.site-bio {
+  margin-top: 16px;
+  font-size: .92rem;
+  color: #666;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.75;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+/* ---- Category Nav ---- */
+.category-nav {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.cat-list {
+  list-style: none;
+  display: flex;
+  gap: 4px;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 14px 24px;
+  overflow-x: auto;
+}
+.cat-btn {
+  cursor: pointer;
+  border: 1.5px solid transparent;
+  background: transparent;
+  font-family: inherit;
+  font-size: .88rem;
+  padding: 6px 18px;
+  border-radius: 999px;
+  color: var(--muted);
+  transition: all .18s ease;
+  white-space: nowrap;
+}
+.cat-btn:hover {
+  border-color: var(--border);
+  color: var(--text);
+}
+.cat-btn.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+/* ---- Article Grid ---- */
+.article-grid {
+  max-width: var(--max-w);
+  margin: 48px auto;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--gap);
+}
+
+/* ---- Card ---- */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0,0,0,.08);
+}
+.card.hidden { display: none; }
+
+.card-link {
+  display: block;
+  padding: 28px 24px 24px;
+}
+
+.card-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.date { font-size: .78rem; color: var(--muted); }
+
+.card-title {
+  font-size: 1.12rem;
+  font-weight: 700;
+  line-height: 1.45;
+  margin-bottom: 10px;
+  color: var(--text);
+}
+.card:hover .card-title { opacity: .8; }
+
+.card-excerpt {
+  font-size: .88rem;
+  color: #555;
+  margin-bottom: 20px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ---- Category Badge ---- */
+.cat-badge {
+  display: inline-block;
+  font-size: .72rem;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: .04em;
+}
+.cat-badge.finance { background: var(--c-finance); }
+.cat-badge.career  { background: var(--c-career); }
+.cat-badge.love    { background: var(--c-love); }
+.cat-badge.book    { background: var(--c-book); }
+.cat-badge.film    { background: var(--c-film); }
+
+/* ---- Philosophy Tags ---- */
+.tag-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag {
+  font-size: .7rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2px 8px;
+  color: var(--muted);
+  background: var(--bg);
+  letter-spacing: .05em;
+}
+
+/* ---- Site Footer ---- */
+.site-footer {
+  text-align: center;
+  padding: 48px 24px;
+  font-size: .82rem;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+}
+
+/* ---- Article Page ---- */
+.article-page { max-width: 720px; margin: 60px auto; padding: 0 24px 80px; }
+.article-page .back-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: .85rem; color: var(--muted); margin-bottom: 40px;
+}
+.article-page .back-link:hover { color: var(--text); }
+
+.article-header { margin-bottom: 48px; border-bottom: 1px solid var(--border); padding-bottom: 32px; }
+.article-header .cat-badge { margin-bottom: 16px; }
+.article-header h1 {
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  line-height: 1.35;
+  margin-bottom: 12px;
+}
+.article-header .article-date { font-size: .82rem; color: var(--muted); }
+
+.article-body {
+  font-size: 1rem;
+  line-height: 1.9;
+  color: #333;
+}
+.article-body p { margin-bottom: 1.5em; }
+.article-body .placeholder-note {
+  background: #f5f3f0;
+  border-left: 3px solid var(--border);
+  padding: 20px 24px;
+  border-radius: 0 8px 8px 0;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.article-footer {
+  margin-top: 56px;
+  padding-top: 28px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.article-footer .label { font-size: .8rem; color: var(--muted); margin-right: 4px; }
+.article-footer .tag { font-size: .8rem; }
+
+/* ---- Responsive ---- */
+@media (max-width: 600px) {
+  .article-grid { grid-template-columns: 1fr; }
+  .cat-list { gap: 2px; }
+  .cat-btn { padding: 5px 13px; }
+}
