@@ -53,6 +53,6 @@ tags: [探索, 财富]
   { "name": "美股",   "target": 5,  "actual": 0 },
   { "name": "美元",   "target": 5,  "actual": 4 },
   { "name": "现金",   "target": 10, "actual": 33 },
-  { "name": "固定资产", "target": 30, "actual": 0 }
+  { "name": "固定资产", "target": 40, "actual": 0 }
 ]
 ```

@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>文章 · 鲸的世界</title>
-  <link rel="stylesheet" href="style.css?v=20261003-asset-label-on-line" />
+  <link rel="stylesheet" href="style.css?v=20261003-asset-raw-percent" />
 </head>
 <body>
 
@@ -319,19 +319,21 @@
     }
 
     function buildPieSvg(data, field) {
-      const total = data.reduce((sum, item) => sum + Number(item[field] || 0), 0) || 1;
       let startAngle = -90;
       const cx = 150;
       const cy = 150;
       const radius = 78;
       const lineStartRadius = 82;
       const lineEndRadius = 112;
+      const visibleData = data.filter(item => item[field] > 0);
+      const usedPercent = visibleData.reduce((sum, item) => sum + Number(item[field] || 0), 0);
+      const chartData = usedPercent < 100
+        ? [...visibleData, { name: '未配置', color: '#ece8e1', [field]: 100 - usedPercent }]
+        : visibleData;
 
-      const slices = data
-        .filter(item => item[field] > 0)
-        .map(item => {
+      const slices = chartData.map(item => {
           const value = Number(item[field]);
-          const angle = (value / total) * 360;
+          const angle = (value / 100) * 360;
           const endAngle = startAngle + angle;
           const path = describeArc(cx, cy, radius, startAngle, endAngle);
           const midAngle = startAngle + angle / 2;
@@ -343,7 +345,7 @@
             y: elbow.y
           };
           const labelX = (elbow.x + lineEnd.x) / 2;
-          const percent = Math.round((value / total) * 100);
+          const percent = value;
           startAngle = endAngle;
 
           return `
