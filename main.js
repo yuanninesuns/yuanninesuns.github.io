@@ -1,12 +1,18 @@
 // ── Site metadata ─────────────────────────────────────────────────────────────
 
-const ARTICLE_INDEX_URL = 'articles.json?v=20261003-articles-json';
+const ARTICLE_INDEX_URL = 'articles.json?v=20261003-pinned-sort';
 
 const CATEGORY_LABELS = {
   finance: '理财',
   journey: '旅途',
   emotion: '情感',
   bookmovie: '书影'
+};
+
+const state = {
+  articles: [],
+  currentCategory: 'all',
+  sortOrder: 'desc'
 };
 
 // ── Utilities ────────────────────────────────────────────────────────────────
@@ -20,56 +26,77 @@ function escapeHtml(value = '') {
     .replace(/'/g, '&#39;');
 }
 
+function parseDateValue(date) {
+  const timestamp = Date.parse(date || '');
+  return Number.isNaN(timestamp) ? 0 : timestamp;
+}
+
 async function fetchJson(url) {
   const resp = await fetch(url, { cache: 'no-store' });
   if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
   return resp.json();
 }
 
-function normalizeArticle(article) {
+function normalizeArticle(article, index = 0) {
   return {
     title: article.title || '无题',
     category: article.category || '',
     date: article.date || '',
     excerpt: article.excerpt || '',
     tags: Array.isArray(article.tags) ? article.tags : [],
-    src: article.src || ''
+    src: article.src || '',
+    pinned: Boolean(article.pinned),
+    originalIndex: index
   };
+}
+
+function getVisibleArticles() {
+  return state.articles
+    .filter(article => state.currentCategory === 'all' || article.category === state.currentCategory)
+    .slice()
+    .sort((a, b) => {
+      if (a.pinned !== b.pinned) return a.pinned ? -1 : 1;
+
+      const diff = parseDateValue(b.date) - parseDateValue(a.date);
+      if (diff === 0) return a.originalIndex - b.originalIndex;
+      return state.sortOrder === 'desc' ? diff : -diff;
+    });
 }
 
 // ── Rendering ────────────────────────────────────────────────────────────────
 
 function renderArticleCard(article) {
-  const item = normalizeArticle(article);
-  const label = CATEGORY_LABELS[item.category] || item.category;
-  const href = `article.html?src=${encodeURIComponent(item.src)}`;
+  const label = CATEGORY_LABELS[article.category] || article.category;
+  const href = `article.html?src=${encodeURIComponent(article.src)}`;
+  const pinnedBadge = article.pinned ? '<span class="pin-badge">置顶</span>' : '';
 
   return `
-    <article class="card" data-cat="${escapeHtml(item.category)}">
+    <article class="card" data-cat="${escapeHtml(article.category)}">
       <a href="${href}" class="card-link">
         <div class="card-meta">
-          <span class="cat-badge ${escapeHtml(item.category)}">${escapeHtml(label)}</span>
-          <span class="date">${escapeHtml(item.date)}</span>
+          <span class="cat-badge ${escapeHtml(article.category)}">${escapeHtml(label)}</span>
+          <span class="date">${escapeHtml(article.date)}</span>
         </div>
-        <h2 class="card-title">${escapeHtml(item.title)}</h2>
-        <p class="card-excerpt">${escapeHtml(item.excerpt)}</p>
+        <h2 class="card-title">${pinnedBadge}${escapeHtml(article.title)}</h2>
+        <p class="card-excerpt">${escapeHtml(article.excerpt)}</p>
         <div class="tag-row">
-          ${item.tags.map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join('')}
+          ${article.tags.map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join('')}
         </div>
       </a>
     </article>`;
 }
 
-function renderArticles(articles) {
+function renderArticles() {
   const grid = document.getElementById('articleGrid');
   if (!grid) return;
 
-  if (!articles.length) {
+  const visibleArticles = getVisibleArticles();
+  if (!visibleArticles.length) {
     grid.innerHTML = '<p class="article-loading">暂无文章</p>';
     return;
   }
 
-  grid.innerHTML = articles.map(renderArticleCard).join('');
+  grid.innerHTML = visibleArticles.map(renderArticleCard).join('');
 }
 
 function renderLoadError(message) {
@@ -85,21 +112,26 @@ function renderLoadError(message) {
     </div>`;
 }
 
-// ── Category filter ──────────────────────────────────────────────────────────
+// ── Controls ─────────────────────────────────────────────────────────────────
 
-function initFilter() {
-  const buttons = document.querySelectorAll('.cat-btn');
-
-  buttons.forEach(btn => {
+function initCategoryFilter() {
+  document.querySelectorAll('.cat-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      buttons.forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+      state.currentCategory = btn.dataset.cat || 'all';
+      renderArticles();
+    });
+  });
+}
 
-      const selectedCategory = btn.dataset.cat;
-      document.querySelectorAll('.card').forEach(card => {
-        const visible = selectedCategory === 'all' || card.dataset.cat === selectedCategory;
-        card.classList.toggle('hidden', !visible);
-      });
+function initSortControl() {
+  document.querySelectorAll('.sort-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      state.sortOrder = btn.dataset.sort || 'desc';
+      renderArticles();
     });
   });
 }
@@ -107,13 +139,15 @@ function initFilter() {
 // ── Init ─────────────────────────────────────────────────────────────────────
 
 async function initHomePage() {
+  initCategoryFilter();
+  initSortControl();
+
   try {
     const articles = await fetchJson(ARTICLE_INDEX_URL);
-    renderArticles(articles.map(normalizeArticle));
-    initFilter();
+    state.articles = articles.map(normalizeArticle);
+    renderArticles();
   } catch (e) {
     renderLoadError(e.message);
-    initFilter();
   }
 }
 

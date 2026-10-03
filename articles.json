@@ -1,5 +1,14 @@
 [
   {
+    "title": "欢迎来到「鲸」的世界",
+    "category": "journey",
+    "date": "2026-10-03",
+    "pinned": true,
+    "excerpt": "这里是「鲸」的世界，也是探索、体验、修炼与记录的开始……",
+    "tags": ["体验", "精神"],
+    "src": "articles/journey/welcome-01.md"
+  },
+  {
     "title": "「鲸」的交易体系",
     "category": "finance",
     "date": "2026-10-03",

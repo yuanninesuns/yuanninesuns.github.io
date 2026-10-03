@@ -83,13 +83,21 @@ a { color: inherit; text-decoration: none; }
   top: 0;
   z-index: 100;
 }
+.nav-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
 .cat-list {
   list-style: none;
   display: flex;
   gap: 4px;
-  max-width: var(--max-w);
-  margin: 0 auto;
-  padding: 14px 24px;
+  margin: 0;
+  padding: 0;
   overflow-x: auto;
 }
 .cat-btn {
@@ -109,6 +117,37 @@ a { color: inherit; text-decoration: none; }
   color: var(--text);
 }
 .cat-btn.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.sort-control {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  color: var(--muted);
+  font-size: .82rem;
+}
+.sort-label {
+  margin-right: 2px;
+}
+.sort-btn {
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--muted);
+  font-family: inherit;
+  font-size: .78rem;
+  padding: 5px 11px;
+  border-radius: 999px;
+  transition: all .18s ease;
+}
+.sort-btn:hover {
+  color: var(--text);
+  border-color: #d8d2ca;
+}
+.sort-btn.active {
   background: var(--accent);
   color: #fff;
   border-color: var(--accent);
@@ -157,6 +196,19 @@ a { color: inherit; text-decoration: none; }
   line-height: 1.45;
   margin-bottom: 10px;
   color: var(--text);
+}
+.pin-badge {
+  display: inline-block;
+  margin-right: 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #fff3dc;
+  color: #a96a00;
+  border: 1px solid #f0d3a2;
+  font-size: .68rem;
+  font-weight: 700;
+  vertical-align: middle;
+  transform: translateY(-1px);
 }
 .card:hover .card-title { opacity: .8; }
 
@@ -301,8 +353,14 @@ a { color: inherit; text-decoration: none; }
 /* ---- Responsive ---- */
 @media (max-width: 600px) {
   .article-grid { grid-template-columns: 1fr; }
+  .nav-inner {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 10px;
+  }
   .cat-list { gap: 2px; }
   .cat-btn { padding: 5px 13px; }
+  .sort-control { justify-content: flex-end; }
 }
 
 /* ---- Movie Table ---- */
