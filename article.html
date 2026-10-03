@@ -185,21 +185,20 @@
           rows.forEach(r => tbody.appendChild(r));
         });
       });
+
+      // Attach sort listeners for movie table
+      document.querySelectorAll('.movie-sort-btn').forEach(btn => {
         btn.addEventListener('click', () => {
           const table = btn.closest('.movie-table-wrap');
           const field = btn.dataset.field;
           const current = btn.dataset.order || 'desc';
           const next = current === 'desc' ? 'asc' : 'desc';
-
-          // Reset all buttons in this table
           table.querySelectorAll('.movie-sort-btn').forEach(b => {
             b.dataset.order = '';
             b.classList.remove('sort-asc', 'sort-desc');
           });
-
           btn.dataset.order = next;
           btn.classList.add(next === 'asc' ? 'sort-asc' : 'sort-desc');
-
           const tbody = table.querySelector('tbody');
           const rows = [...tbody.querySelectorAll('tr')];
           rows.sort((a, b) => {
