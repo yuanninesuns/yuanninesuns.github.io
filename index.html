@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Y的世界</title>
+  <title>鲸的世界</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -11,9 +11,10 @@
   <!-- ===== HEADER ===== -->
   <header class="site-header">
     <div class="header-inner">
-      <a href="index.html" class="site-title">Y的世界</a>
+      <a href="index.html" class="site-title">鲸的世界</a>
       <p class="site-philosophy">探索 &middot; 体验 &middot; 修炼 &middot; 精神 &middot; 物质 &middot; 身体</p>
-      <p class="site-bio">在这里写下你的个人简介——你是谁，你在意什么，你为什么写作。</p>
+      <p class="site-bio">我是「鲸」，一个向往自由，追求自洽框架与简约底层逻辑的人<br />
+        如果我们能产生共鸣，请与我联系</p>
     </div>
   </header>
 
@@ -26,14 +27,15 @@
       <li><button class="cat-btn" data-cat="love">感情</button></li>
       <li><button class="cat-btn" data-cat="book">书评</button></li>
       <li><button class="cat-btn" data-cat="film">影评</button></li>
+      <li><button class="cat-btn" data-cat="essay">随笔</button></li>
     </ul>
   </nav>
 
   <!-- ===== ARTICLE GRID ===== -->
   <main class="article-grid" id="articleGrid">
 
-    <article class="card" data-cat="finance">
-      <a href="articles/finance-01.html" class="card-link">
+    <article class="card" data-cat="finance" data-src="articles/finance/finance-01.md">
+      <a href="article.html?src=articles/finance/finance-01.md" class="card-link">
         <div class="card-meta">
           <span class="cat-badge finance">理财</span>
           <span class="date">2026-10-03</span>
@@ -46,8 +48,8 @@
       </a>
     </article>
 
-    <article class="card" data-cat="career">
-      <a href="articles/career-01.html" class="card-link">
+    <article class="card" data-cat="career" data-src="articles/career/career-01.md">
+      <a href="article.html?src=articles/career/career-01.md" class="card-link">
         <div class="card-meta">
           <span class="cat-badge career">职场</span>
           <span class="date">2026-10-03</span>
@@ -60,8 +62,8 @@
       </a>
     </article>
 
-    <article class="card" data-cat="love">
-      <a href="articles/love-01.html" class="card-link">
+    <article class="card" data-cat="love" data-src="articles/love/love-01.md">
+      <a href="article.html?src=articles/love/love-01.md" class="card-link">
         <div class="card-meta">
           <span class="cat-badge love">感情</span>
           <span class="date">2026-10-03</span>
@@ -74,8 +76,8 @@
       </a>
     </article>
 
-    <article class="card" data-cat="book">
-      <a href="articles/book-01.html" class="card-link">
+    <article class="card" data-cat="book" data-src="articles/book/book-01.md">
+      <a href="article.html?src=articles/book/book-01.md" class="card-link">
         <div class="card-meta">
           <span class="cat-badge book">书评</span>
           <span class="date">2026-10-03</span>
@@ -88,8 +90,8 @@
       </a>
     </article>
 
-    <article class="card" data-cat="film">
-      <a href="articles/film-01.html" class="card-link">
+    <article class="card" data-cat="film" data-src="articles/film/film-01.md">
+      <a href="article.html?src=articles/film/film-01.md" class="card-link">
         <div class="card-meta">
           <span class="cat-badge film">影评</span>
           <span class="date">2026-10-03</span>
@@ -102,11 +104,25 @@
       </a>
     </article>
 
+    <article class="card" data-cat="essay" data-src="articles/essay/essay-01.md">
+      <a href="article.html?src=articles/essay/essay-01.md" class="card-link">
+        <div class="card-meta">
+          <span class="cat-badge essay">随笔</span>
+          <span class="date">2026-10-03</span>
+        </div>
+        <h2 class="card-title">岁月</h2>
+        <p class="card-excerpt"></p>
+        <div class="tag-row">
+          <span class="tag">体验</span><span class="tag">精神</span>
+        </div>
+      </a>
+    </article>
+
   </main>
 
   <!-- ===== FOOTER ===== -->
   <footer class="site-footer">
-    <p>© 2026 Y的世界 &nbsp;·&nbsp; 探索 体验 修炼 精神 物质 身体</p>
+    <p>© 2026 鲸的世界 &nbsp;·&nbsp; 探索 体验 修炼 精神 物质 身体</p>
   </footer>
 
   <script src="main.js"></script>
