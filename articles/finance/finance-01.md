@@ -49,10 +49,10 @@ tags: [探索, 财富]
   { "name": "红利",   "target": 5,  "actual": 0 },
   { "name": "国债",   "target": 5,  "actual": 0 },
   { "name": "黄金",   "target": 5,  "actual": 0 },
-  { "name": "A股",    "target": 25, "actual": 63 },
+  { "name": "A股",    "target": 20, "actual": 63 },
   { "name": "美股",   "target": 5,  "actual": 0 },
   { "name": "美元",   "target": 5,  "actual": 4 },
-  { "name": "现金",   "target": 10, "actual": 33 },
+  { "name": "现金",   "target": 15, "actual": 33 },
   { "name": "固定资产", "target": 40, "actual": 0 }
 ]
 ```
