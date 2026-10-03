@@ -382,7 +382,7 @@ button { font: inherit; }
   font-family: inherit;
   font-size: 10px;
   font-weight: 700;
-  dominant-baseline: middle;
+  dominant-baseline: auto;
 }
 .asset-legend-wrap { overflow-x: auto; }
 .asset-legend {

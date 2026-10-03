@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>文章 · 鲸的世界</title>
-  <link rel="stylesheet" href="style.css?v=20261003-asset-label-above-line" />
+  <link rel="stylesheet" href="style.css?v=20261003-asset-label-on-line" />
 </head>
 <body>
 
@@ -339,19 +339,18 @@
           const elbow = polarToCartesian(cx, cy, lineEndRadius, midAngle);
           const isRightSide = elbow.x >= cx;
           const lineEnd = {
-            x: elbow.x + (isRightSide ? 34 : -34),
+            x: elbow.x + (isRightSide ? 58 : -58),
             y: elbow.y
           };
+          const labelX = (elbow.x + lineEnd.x) / 2;
           const percent = Math.round((value / total) * 100);
-          const labelAnchor = isRightSide ? 'start' : 'end';
-          const labelOffset = isRightSide ? 6 : -6;
           startAngle = endAngle;
 
           return `
             <g>
               <path d="${path}" fill="${item.color}"></path>
               <polyline class="asset-label-line" points="${lineStart.x},${lineStart.y} ${elbow.x},${elbow.y} ${lineEnd.x},${lineEnd.y}"></polyline>
-              <text x="${lineEnd.x + labelOffset}" y="${lineEnd.y - 6}" text-anchor="${labelAnchor}" class="asset-pie-label">${item.name} ${percent}%</text>
+              <text x="${labelX}" y="${lineEnd.y - 7}" text-anchor="middle" class="asset-pie-label">${item.name} ${percent}%</text>
             </g>`;
         }).join('');
 
