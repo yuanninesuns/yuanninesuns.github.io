@@ -1,5 +1,5 @@
 ---
-title: "鲸的交易体系"
+title: "「鲸」的交易体系"
 category: finance
 date: "2026-10-03"
 tags: [探索, 物质]
