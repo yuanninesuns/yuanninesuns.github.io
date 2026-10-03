@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>文章 · 鲸的世界</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=20261003-asset-chart" />
 </head>
 <body>
 
@@ -158,6 +158,7 @@
       // Pre-process: extract special code blocks before passing to marked
       const movieTables = [];
       const journeyTables = [];
+      const assetAllocations = [];
 
       let processedBody = body.replace(
         /```movie-table\s*\n([\s\S]*?)```/g,
@@ -174,6 +175,15 @@
           const idx = journeyTables.length;
           try { journeyTables.push(JSON.parse(json.trim())); } catch { journeyTables.push(null); }
           return `<div class="journey-table-placeholder" data-idx="${idx}"></div>`;
+        }
+      );
+
+      processedBody = processedBody.replace(
+        /```asset-allocation\s*\n([\s\S]*?)```/g,
+        (_, json) => {
+          const idx = assetAllocations.length;
+          try { assetAllocations.push(JSON.parse(json.trim())); } catch { assetAllocations.push(null); }
+          return `<div class="asset-allocation-placeholder" data-idx="${idx}"></div>`;
         }
       );
 
@@ -204,6 +214,14 @@
         const data = journeyTables[idx];
         if (!data) { el.outerHTML = '<p style="color:#c00">表格数据解析失败</p>'; return; }
         el.outerHTML = buildJourneyTable(data);
+      });
+
+      // Replace asset-allocation placeholders
+      document.querySelectorAll('.asset-allocation-placeholder').forEach(el => {
+        const idx = parseInt(el.dataset.idx);
+        const data = assetAllocations[idx];
+        if (!data) { el.outerHTML = '<p style="color:#c00">资产配置数据解析失败</p>'; return; }
+        el.outerHTML = buildAssetAllocationChart(data);
       });
 
       // Attach sort listeners for journey table
@@ -253,6 +271,71 @@
         document.getElementById('articleContent').innerHTML =
           `<p style="color:#c00;text-align:center;padding:60px 0;">文章渲染失败：${e.message}</p>`;
       }
+    }
+
+    function buildAssetAllocationChart(data) {
+      const colors = ['#4a7c59', '#bf8a3a', '#d7ad4b', '#5b6abf', '#8a6bbf', '#3a9fbf', '#9a9a9a', '#7f6f5f'];
+      const totalTarget = data.reduce((sum, item) => sum + Number(item.target || 0), 0) || 1;
+      const totalActual = data.reduce((sum, item) => sum + Number(item.actual || 0), 0) || 1;
+
+      const withColor = data.map((item, index) => ({
+        ...item,
+        color: colors[index % colors.length],
+        target: Number(item.target || 0),
+        actual: Number(item.actual || 0)
+      }));
+
+      const targetPie = buildPieStyle(withColor, 'target', totalTarget);
+      const actualPie = buildPieStyle(withColor, 'actual', totalActual);
+
+      const legendRows = withColor.map(item => {
+        const diff = item.actual - item.target;
+        const diffText = `${diff > 0 ? '+' : ''}${diff}%`;
+        const diffClass = diff > 0 ? 'positive' : diff < 0 ? 'negative' : 'zero';
+        return `
+          <tr>
+            <td><span class="asset-color" style="background:${item.color}"></span>${item.name}</td>
+            <td>${item.target}%</td>
+            <td>${item.actual}%</td>
+            <td class="asset-diff ${diffClass}">${diffText}</td>
+          </tr>`;
+      }).join('');
+
+      return `
+        <section class="asset-card">
+          <div class="asset-chart-grid">
+            <div class="asset-pie-panel">
+              <h3>目标配置</h3>
+              <div class="asset-pie" style="background:${targetPie}"></div>
+            </div>
+            <div class="asset-pie-panel">
+              <h3>实际配置</h3>
+              <div class="asset-pie" style="background:${actualPie}"></div>
+            </div>
+          </div>
+          <div class="asset-legend-wrap">
+            <table class="asset-legend">
+              <thead>
+                <tr><th>资产</th><th>目标</th><th>实际</th><th>差值</th></tr>
+              </thead>
+              <tbody>${legendRows}</tbody>
+            </table>
+          </div>
+        </section>`;
+    }
+
+    function buildPieStyle(data, field, total) {
+      let start = 0;
+      const slices = data
+        .filter(item => item[field] > 0)
+        .map(item => {
+          const end = start + (item[field] / total) * 100;
+          const slice = `${item.color} ${start}% ${end}%`;
+          start = end;
+          return slice;
+        });
+
+      return slices.length ? `conic-gradient(${slices.join(', ')})` : '#eee';
     }
 
     function buildJourneyTable(data) {

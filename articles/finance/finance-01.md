@@ -37,3 +37,22 @@ tags: [探索, 财富]
 - 逻辑是否发生变化
 - 高位破线
 - 出现了更优质的标的
+
+
+
+---
+
+## 4. 资产配置（随时更新）
+
+```asset-allocation
+[
+  { "name": "红利",   "target": 5,  "actual": 0 },
+  { "name": "国债",   "target": 5,  "actual": 0 },
+  { "name": "黄金",   "target": 5,  "actual": 0 },
+  { "name": "A股",    "target": 25, "actual": 63 },
+  { "name": "美股",   "target": 5,  "actual": 0 },
+  { "name": "美元",   "target": 5,  "actual": 4 },
+  { "name": "现金",   "target": 10, "actual": 33 },
+  { "name": "固定资产", "target": 30, "actual": 0 }
+]
+```
