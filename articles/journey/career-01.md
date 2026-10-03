@@ -2,6 +2,7 @@
 title: "一句话"
 category: journey
 date: "2026-10-03"
+excerpt: "守得云开见月明、不要怕，不要悔、流水不争先，争的是滔滔不绝……"
 tags: [修炼, 精神]
 ---
 

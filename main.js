@@ -28,6 +28,7 @@ function parseFrontmatter(text) {
 // Extract plain-text excerpt from markdown body (strip markdown syntax)
 function extractExcerpt(body, maxLen = 60) {
   const plain = body
+    .replace(/```[\s\S]*?```/g, '') // fenced code blocks
     .replace(/^#{1,6}\s+/gm, '')   // headings
     .replace(/>\s*/gm, '')          // blockquotes
     .replace(/`{1,3}[^`]*`{1,3}/g, '') // inline/block code
@@ -51,7 +52,7 @@ async function loadCard(card) {
 
   let text;
   try {
-    const resp = await fetch(src);
+    const resp = await fetch(src, { cache: 'no-store' });
     if (!resp.ok) return;
     text = await resp.text();
   } catch {
@@ -63,7 +64,8 @@ async function loadCard(card) {
   const cat     = meta.category || card.dataset.cat || '';
   const date    = meta.date    || '';
   const tags    = Array.isArray(meta.tags) ? meta.tags : (meta.tags ? [meta.tags] : []);
-  const excerpt = extractExcerpt(body);
+  const fallbackExcerpt = card.querySelector('.card-excerpt')?.textContent.trim() || '';
+  const excerpt = meta.excerpt || extractExcerpt(body) || fallbackExcerpt;
   const label   = catLabels[cat] || cat;
   const href    = `article.html?src=${src}`;
 
