@@ -2,7 +2,7 @@
 title: "「鲸」的书单"
 category: bookmovie
 date: "2026-10-03"
-tags: [精神, 修炼, 体验]
+tags: [精神, 体验]
 ---
 
 ## 扶轮问路

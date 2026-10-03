@@ -2,7 +2,7 @@
 title: "「鲸」的交易体系"
 category: finance
 date: "2026-10-03"
-tags: [探索, 物质]
+tags: [探索, 财富]
 ---
 
 ## 1. 核心原则

@@ -11,7 +11,7 @@
   <header class="site-header">
     <div class="header-inner">
       <a href="index.html" class="site-title">鲸的世界</a>
-      <p class="site-philosophy">探索 &middot; 体验 &middot; 修炼 &middot; 精神 &middot; 物质 &middot;肉体</p>
+      <p class="site-philosophy">探索 &middot; 体验 &middot; 修炼 &middot; 精神 &middot; 财富 &middot;肉体</p>
     </div>
   </header>
 
@@ -21,7 +21,7 @@
   </div>
 
   <footer class="site-footer">
-    <p id="footerText">© 鲸的世界 &nbsp;·&nbsp; 探索 体验 修炼 精神 物质 肉体</p>
+    <p id="footerText">© 鲸的世界 &nbsp;·&nbsp; 探索 体验 修炼 精神 财富 肉体</p>
     <p class="site-counter">
       访客数 <span id="busuanzi_value_site_uv">--</span> &nbsp;·&nbsp;
       访问量 <span id="busuanzi_value_site_pv">--</span>
@@ -115,19 +115,25 @@
         ? `<div class="article-footer"><span class="label">标签：</span>${tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>`
         : '';
 
-      // Pre-process: extract movie-table blocks before passing to marked
-      // Replace ```movie-table ... ``` with a placeholder <div>
+      // Pre-process: extract special code blocks before passing to marked
       const movieTables = [];
-      const processedBody = body.replace(
+      const journeyTables = [];
+
+      let processedBody = body.replace(
         /```movie-table\s*\n([\s\S]*?)```/g,
         (_, json) => {
           const idx = movieTables.length;
-          try {
-            movieTables.push(JSON.parse(json.trim()));
-          } catch {
-            movieTables.push(null);
-          }
+          try { movieTables.push(JSON.parse(json.trim())); } catch { movieTables.push(null); }
           return `<div class="movie-table-placeholder" data-idx="${idx}"></div>`;
+        }
+      );
+
+      processedBody = processedBody.replace(
+        /```journey-table\s*\n([\s\S]*?)```/g,
+        (_, json) => {
+          const idx = journeyTables.length;
+          try { journeyTables.push(JSON.parse(json.trim())); } catch { journeyTables.push(null); }
+          return `<div class="journey-table-placeholder" data-idx="${idx}"></div>`;
         }
       );
 
@@ -144,7 +150,7 @@
         ${tagsHtml}
       `;
 
-      // Replace placeholders with actual sortable tables
+      // Replace movie-table placeholders
       document.querySelectorAll('.movie-table-placeholder').forEach(el => {
         const idx = parseInt(el.dataset.idx);
         const data = movieTables[idx];
@@ -152,8 +158,33 @@
         el.outerHTML = buildMovieTable(data);
       });
 
-      // Attach sort listeners
-      document.querySelectorAll('.movie-sort-btn').forEach(btn => {
+      // Replace journey-table placeholders
+      document.querySelectorAll('.journey-table-placeholder').forEach(el => {
+        const idx = parseInt(el.dataset.idx);
+        const data = journeyTables[idx];
+        if (!data) { el.outerHTML = '<p style="color:#c00">表格数据解析失败</p>'; return; }
+        el.outerHTML = buildJourneyTable(data);
+      });
+
+      // Attach sort listeners for journey table
+      document.querySelectorAll('.journey-sort-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const wrap = btn.closest('.journey-table-wrap');
+          const current = btn.dataset.order || 'desc';
+          const next = current === 'desc' ? 'asc' : 'desc';
+          btn.dataset.order = next;
+          btn.classList.remove('sort-asc', 'sort-desc');
+          btn.classList.add(next === 'asc' ? 'sort-asc' : 'sort-desc');
+          const tbody = wrap.querySelector('tbody');
+          const rows = [...tbody.querySelectorAll('tr')];
+          rows.sort((a, b) => {
+            const aY = parseInt(a.dataset.year) || 9999;
+            const bY = parseInt(b.dataset.year) || 9999;
+            return next === 'desc' ? bY - aY : aY - bY;
+          });
+          rows.forEach(r => tbody.appendChild(r));
+        });
+      });
         btn.addEventListener('click', () => {
           const table = btn.closest('.movie-table-wrap');
           const field = btn.dataset.field;
@@ -179,6 +210,30 @@
           rows.forEach(r => tbody.appendChild(r));
         });
       });
+    }
+
+    function buildJourneyTable(data) {
+      const rows = data.map(item =>
+        `<tr data-year="${item.year || 9999}">
+          <td class="journey-quote">${item.quote}</td>
+          <td class="journey-story">${item.story || ''}</td>
+          <td class="journey-year">${item.year || '—'}</td>
+        </tr>`
+      ).join('');
+
+      return `
+        <div class="journey-table-wrap">
+          <div class="movie-sort-bar">
+            排序：
+            <button class="journey-sort-btn" data-order="">时间</button>
+          </div>
+          <table class="journey-table">
+            <thead>
+              <tr><th>一句话</th><th>经历</th><th>时间</th></tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>`;
     }
 
     function buildMovieTable(data) {

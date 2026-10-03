@@ -2,7 +2,7 @@
 title: "阿邦的奶奶"
 category: emotion
 date: "2020-01-11"
-tags: [体验, 精神]
+tags: [体验, 精神, 修炼]
 ---
 
 
