@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>文章 · 鲸的世界</title>
-  <link rel="stylesheet" href="style.css?v=20261003-asset-labels" />
+  <link rel="stylesheet" href="style.css?v=20261003-asset-callouts" />
 </head>
 <body>
 
@@ -321,10 +321,12 @@
     function buildPieSvg(data, field) {
       const total = data.reduce((sum, item) => sum + Number(item[field] || 0), 0) || 1;
       let startAngle = -90;
-      const cx = 120;
-      const cy = 120;
-      const radius = 92;
-      const labelRadius = 58;
+      const cx = 150;
+      const cy = 150;
+      const radius = 78;
+      const lineStartRadius = 82;
+      const lineEndRadius = 112;
+      const labelRadius = 124;
 
       const slices = data
         .filter(item => item[field] > 0)
@@ -334,22 +336,23 @@
           const endAngle = startAngle + angle;
           const path = describeArc(cx, cy, radius, startAngle, endAngle);
           const midAngle = startAngle + angle / 2;
+          const lineStart = polarToCartesian(cx, cy, lineStartRadius, midAngle);
+          const lineEnd = polarToCartesian(cx, cy, lineEndRadius, midAngle);
           const label = polarToCartesian(cx, cy, labelRadius, midAngle);
           const percent = Math.round((value / total) * 100);
-          const showLabel = percent >= 4;
+          const labelAnchor = label.x >= cx ? 'start' : 'end';
+          const labelOffset = label.x >= cx ? 6 : -6;
           startAngle = endAngle;
 
           return `
             <g>
               <path d="${path}" fill="${item.color}"></path>
-              ${showLabel ? `
-                <text x="${label.x}" y="${label.y - 3}" text-anchor="middle" class="asset-pie-label asset-pie-name">${item.name}</text>
-                <text x="${label.x}" y="${label.y + 12}" text-anchor="middle" class="asset-pie-label asset-pie-value">${percent}%</text>
-              ` : ''}
+              <polyline class="asset-label-line" points="${lineStart.x},${lineStart.y} ${lineEnd.x},${lineEnd.y} ${label.x},${label.y}"></polyline>
+              <text x="${label.x + labelOffset}" y="${label.y + 4}" text-anchor="${labelAnchor}" class="asset-pie-label">${item.name} ${percent}%</text>
             </g>`;
         }).join('');
 
-      return `<svg class="asset-pie" viewBox="0 0 240 240" role="img" aria-label="资产配置饼图">${slices}</svg>`;
+      return `<svg class="asset-pie" viewBox="0 0 300 300" role="img" aria-label="资产配置饼图">${slices}</svg>`;
     }
 
     function polarToCartesian(cx, cy, radius, angleInDegrees) {

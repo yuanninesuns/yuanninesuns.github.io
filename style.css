@@ -363,8 +363,8 @@ button { font: inherit; }
   letter-spacing: .08em;
 }
 .asset-pie {
-  width: 240px;
-  height: 240px;
+  width: 300px;
+  height: 300px;
   overflow: visible;
   filter: drop-shadow(0 8px 20px rgba(0,0,0,.08));
 }
@@ -372,18 +372,18 @@ button { font: inherit; }
   stroke: var(--surface);
   stroke-width: 1.5;
 }
-.asset-pie-label {
-  pointer-events: none;
-  fill: #fff;
-  paint-order: stroke;
-  stroke: rgba(0, 0, 0, .28);
-  stroke-width: 2px;
-  stroke-linejoin: round;
-  font-family: inherit;
-  font-weight: 700;
+.asset-label-line {
+  fill: none;
+  stroke: #b8b1a8;
+  stroke-width: 1;
 }
-.asset-pie-name { font-size: 11px; }
-.asset-pie-value { font-size: 10px; opacity: .95; }
+.asset-pie-label {
+  fill: #555;
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  dominant-baseline: middle;
+}
 .asset-legend-wrap { overflow-x: auto; }
 .asset-legend {
   width: 100%;
@@ -424,5 +424,5 @@ button { font: inherit; }
   .cat-btn { padding: 5px 13px; }
   .sort-control { justify-content: flex-end; align-self: flex-end; }
   .asset-chart-grid { grid-template-columns: 1fr; }
-  .asset-pie { width: 210px; height: 210px; }
+  .asset-pie { width: 260px; height: 260px; }
 }
