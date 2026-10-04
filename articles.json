@@ -5,7 +5,7 @@
     "date": "2026-10-03",
     "pinned": true,
     "excerpt": "这里是「鲸」的世界，也是探索、体验、修炼与记录的开始……",
-    "tags": ["体验", "精神"],
+    "tags": ["体验", "精神", "探索"],
     "src": "articles/journey/welcome-01.md"
   },
   {
@@ -59,6 +59,14 @@
     "excerpt": "关于史铁生，也关于命运、苦难、自由与人的精神世界……",
     "tags": ["精神", "体验"],
     "src": "articles/bookmovie/shitiesheng-01.md"
+  },
+  {
+    "title": "观《给阿嬷的情书》",
+    "category": "bookmovie",
+    "date": "2026-10-04",
+    "excerpt": "关于电影《给阿嬷的情书》的观后记录，亲情、记忆与生命经验的回望……",
+    "tags": ["体验", "精神"],
+    "src": "articles/bookmovie/geaimadeqingshu-01.md"
   },
   {
     "title": "「鲸」的片单",
