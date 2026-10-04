@@ -4,6 +4,8 @@
     "category": "journey",
     "date": "2026-10-03",
     "pinned": true,
+    "categoryPinned": true,
+    "categoryPinOrder": 1,
     "excerpt": "这里是「鲸」的世界，也是探索、体验、修炼与记录的开始……",
     "tags": ["体验", "精神", "探索"],
     "src": "articles/journey/welcome-01.md"
