@@ -11,6 +11,14 @@
     "src": "articles/journey/welcome-01.md"
   },
   {
+    "title": "ai时代什么东西是稀缺的",
+    "category": "journey",
+    "date": "2026-10-04",
+    "excerpt": "在 AI 让内容、工具与答案变得越来越便宜的时代，重新思考什么才真正稀缺……",
+    "tags": ["探索", "精神"],
+    "src": "articles/journey/ai-era-scarcity-01.md"
+  },
+  {
     "title": "「鲸」的交易体系",
     "category": "finance",
     "date": "2026-10-03",
