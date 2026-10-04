@@ -21,6 +21,14 @@
     "src": "articles/finance/finance-01.md"
   },
   {
+    "title": "半导体硅与光刻胶调研",
+    "category": "finance",
+    "date": "2026-10-04",
+    "excerpt": "关于半导体硅与光刻胶产业链、供需格局、国产替代与投资逻辑的调研记录……",
+    "tags": ["探索", "财富"],
+    "src": "articles/finance/semiconductor-silicon-photoresist-01.md"
+  },
+  {
     "title": "一句话",
     "category": "journey",
     "date": "2026-10-03",
