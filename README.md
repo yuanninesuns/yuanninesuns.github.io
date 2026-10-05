@@ -1,43 +1,136 @@
 # 「鲸」的世界 — 博客源码
 
-纯静态博客，无需构建工具，可直接部署到 GitHub Pages。
+这是「鲸」的个人博客源码。
 
-## 目录结构
+项目采用纯静态结构，无需构建工具，可直接部署到 GitHub Pages。首页通过 `articles.json` 读取文章索引，文章正文使用 Markdown 编写。
+
+## 项目结构
 
 ```
-blog/
-├── index.html          # 主页（含分类筛选导航）
-├── style.css           # 全局样式
-├── main.js             # 分类切换逻辑
-└── articles/
-    ├── finance-01.html # 理财 · 从零开始，搭建自己的第一份资产地图
-    ├── career-01.html  # 职场 · 在系统里找到自己的位置
-    ├── love-01.html    # 感情 · 爱是一种需要练习的能力
-    ├── book-01.html    # 书评 · 读《活出意义来》
-    └── film-01.html    # 影评 · 《瞬息全宇宙》
+yuanninesuns.github.io/
+├── index.html              # 首页：分类筛选、排序、文章卡片容器
+├── article.html            # 文章详情页：读取并渲染 Markdown
+├── articles.json           # 文章索引：控制首页展示内容
+├── main.js                 # 首页文章加载、分类切换、排序逻辑
+├── style.css               # 全站样式
+├── pic/                    # 图片资源
+└── articles/               # Markdown 文章目录
+    ├── journey/            # 旅途
+    ├── emotion/            # 情感
+    ├── finance/            # 理财
+    └── bookmovie/          # 书影
+```
+
+## 当前分类
+
+| category | 中文名称 | 说明 |
+|---|---|---|
+| `journey` | 旅途 | 人生经历、阶段记录、思考札记 |
+| `emotion` | 情感 | 情绪、关系、记忆与私人叙事 |
+| `finance` | 理财 | 投资、商业、产业与财富认知 |
+| `bookmovie` | 书影 | 书籍、电影、人物与精神世界 |
+
+## 哲学标签
+
+文章标签建议限定在以下范围内：
+
+- `探索`
+- `体验`
+- `修炼`
+- `精神`
+- `财富`
+- `肉体`
+
+## 新增文章
+
+新增一篇文章通常需要两步：
+
+### 1. 创建 Markdown 文件
+
+在对应分类目录下创建 `.md` 文件，例如：
+
+```text
+articles/journey/ai-era-scarcity-01.md
+```
+
+文章头部使用 frontmatter：
+
+```md
+---
+title: "ai时代什么东西是稀缺的"
+category: journey
+date: "2026-10-04"
+excerpt: "在 AI 让内容、工具与答案变得越来越便宜的时代，重新思考什么才真正稀缺……"
+tags: [探索, 精神]
+---
+
+# ai时代什么东西是稀缺的
+
+正文内容……
+```
+
+### 2. 更新 `articles.json`
+
+在 `articles.json` 中添加对应索引：
+
+```json
+{
+  "title": "ai时代什么东西是稀缺的",
+  "category": "journey",
+  "date": "2026-10-04",
+  "excerpt": "在 AI 让内容、工具与答案变得越来越便宜的时代，重新思考什么才真正稀缺……",
+  "tags": ["探索", "精神"],
+  "src": "articles/journey/ai-era-scarcity-01.md"
+}
+```
+
+首页会根据 `articles.json` 自动渲染文章卡片，并按照分类显示在对应 tab 下。
+
+## 置顶规则
+
+文章索引支持两个置顶字段：
+
+```json
+{
+  "pinned": true,
+  "categoryPinned": true,
+  "categoryPinOrder": 1
+}
+```
+
+含义：
+
+- `pinned`：是否在「全部」页置顶
+- `categoryPinned`：是否在当前分类 tab 下置顶
+- `categoryPinOrder`：分类内置顶排序，数字越小越靠前
+
+## 本地预览
+
+由于文章列表和 Markdown 内容通过 `fetch` 加载，建议使用本地 HTTP 服务预览：
+
+```bash
+python3 -m http.server 8080
+```
+
+然后访问：
+
+```text
+http://localhost:8080
 ```
 
 ## 部署到 GitHub Pages
 
-1. 新建一个 GitHub 仓库（比如 `y-world`）
-2. 把 `blog/` 目录下的所有文件推送到仓库根目录
-3. 进入仓库 **Settings → Pages**，Source 选 `main` 分支 `/root`，保存
-4. 访问 `https://<你的用户名>.github.io/y-world/` 即可
+1. 将项目文件推送到 GitHub 仓库根目录
+2. 进入仓库 **Settings → Pages**
+3. Source 选择 `main` 分支和 `/root`
+4. 保存后访问：
 
-## 新增文章
+```text
+https://<你的用户名>.github.io/<仓库名>/
+```
 
-1. 在 `articles/` 目录下复制任意一篇 `.html` 作为模板
-2. 修改标题、正文、分类、标签
-3. 在 `index.html` 的 `<main>` 区域添加对应的 `<article class="card" data-cat="...">` 卡片
+如果仓库名是 `<你的用户名>.github.io`，则访问：
 
-## 分类与哲学标签
-
-| 分类 data-cat | 中文 | 颜色 |
-|---|---|---|
-| finance | 理财 | 墨绿 |
-| career  | 职场 | 靛蓝 |
-| love    | 感情 | 玫红 |
-| book    | 书评 | 紫   |
-| film    | 影评 | 琥珀 |
-
-可用哲学标签：`探索` `体验` `修炼` `精神` `财富` `身体`
+```text
+https://<你的用户名>.github.io/
+```
