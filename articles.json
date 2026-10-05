@@ -6,7 +6,7 @@
     "pinned": true,
     "categoryPinned": true,
     "categoryPinOrder": 1,
-    "excerpt": "这里是「鲸」的世界，也是探索、体验、修炼与记录的开始……",
+    "excerpt": "这里是探索｜体验｜修炼的序章，是精神｜财富｜肉体的渡口……",
     "tags": ["体验", "精神", "探索"],
     "src": "articles/journey/welcome-01.md"
   },
@@ -14,7 +14,7 @@
     "title": "ai时代什么东西是稀缺的",
     "category": "journey",
     "date": "2026-10-04",
-    "excerpt": "在 AI 让内容、工具与答案变得越来越便宜的时代，重新思考什么才真正稀缺……",
+    "excerpt": "AI 时代真正稀缺的是一个人自己提出问题、质疑答案，并追问到底的能力……",
     "tags": ["探索", "精神"],
     "src": "articles/journey/ai-era-scarcity-01.md"
   },
