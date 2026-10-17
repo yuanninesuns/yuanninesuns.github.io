@@ -18,7 +18,8 @@ yuanninesuns.github.io/
     ├── journey/            # 旅途
     ├── emotion/            # 情感
     ├── finance/            # 理财
-    └── bookmovie/          # 书影
+    ├── bookmovie/          # 书影
+    └── milestone/          # 年度milestone
 ```
 
 ## 当前分类
@@ -29,6 +30,7 @@ yuanninesuns.github.io/
 | `emotion` | 情感 | 情绪、关系、记忆与私人叙事 |
 | `finance` | 理财 | 投资、商业、产业与财富认知 |
 | `bookmovie` | 书影 | 书籍、电影、人物与精神世界 |
+| `milestone` | 年度milestone | 按年度记录重要节点与成长 |
 
 ## 哲学标签
 

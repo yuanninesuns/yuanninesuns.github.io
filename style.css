@@ -19,6 +19,7 @@
   --c-journey:   #5b6abf;
   --c-emotion:   #bf5b6a;
   --c-bookmovie: #8a6bbf;
+  --c-milestone: #99733d;
 
   --radius: 12px;
   --gap: 24px;
@@ -221,6 +222,7 @@ button { font: inherit; }
 .cat-badge.journey   { background: var(--c-journey); }
 .cat-badge.emotion   { background: var(--c-emotion); }
 .cat-badge.bookmovie { background: var(--c-bookmovie); }
+.cat-badge.milestone { background: var(--c-milestone); }
 
 /* ---- Philosophy Tags ---- */
 .tag-row { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -264,6 +266,27 @@ button { font: inherit; }
 .article-body ul,
 .article-body ol { padding-left: 1.4em; margin-bottom: 1.2em; }
 .article-body li { margin-bottom: 0.35em; }
+.article-body > table {
+  display: block;
+  width: 100%;
+  margin: 24px 0;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: .9rem;
+}
+.article-body > table th,
+.article-body > table td {
+  padding: 10px 16px;
+  border: 1px solid var(--border);
+  text-align: center;
+}
+.article-body > table th {
+  background: #f5f3f0;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.article-body > table td:first-child { white-space: nowrap; }
+.article-body > table tbody tr:hover { background: #f5f3f0; }
 .article-body .placeholder-note {
   background: #f5f3f0;
   border-left: 3px solid var(--border);

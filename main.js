@@ -6,7 +6,8 @@ const CATEGORY_LABELS = {
   finance: '理财',
   journey: '旅途',
   emotion: '情感',
-  bookmovie: '书影'
+  bookmovie: '书影',
+  milestone: '年度milestone'
 };
 
 const state = {
