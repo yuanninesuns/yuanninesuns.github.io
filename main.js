@@ -55,7 +55,9 @@ function normalizeArticle(article, index = 0) {
 
 function getVisibleArticles() {
   return state.articles
-    .filter(article => state.currentCategory === 'all' || article.category === state.currentCategory)
+    .filter(article => state.currentCategory === 'all'
+      ? article.category !== 'milestone'
+      : article.category === state.currentCategory)
     .slice()
     .sort((a, b) => {
       const inCategoryView = state.currentCategory !== 'all';
