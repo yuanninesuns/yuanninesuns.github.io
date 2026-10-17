@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>文章 · 鲸的世界</title>
-  <link rel="stylesheet" href="style.css?v=20261017-milestone" />
+  <link rel="stylesheet" href="style.css?v=20261017-milestone-film-table" />
 </head>
 <body>
 
@@ -159,6 +159,7 @@
       // Pre-process: extract special code blocks before passing to marked
       const movieTables = [];
       const journeyTables = [];
+      const milestoneTables = [];
       const assetAllocations = [];
 
       let processedBody = body.replace(
@@ -188,6 +189,15 @@
         }
       );
 
+      processedBody = processedBody.replace(
+        /```milestone-table\s*\n([\s\S]*?)```/g,
+        (_, json) => {
+          const idx = milestoneTables.length;
+          try { milestoneTables.push(JSON.parse(json.trim())); } catch { milestoneTables.push(null); }
+          return `<div class="milestone-table-placeholder" data-idx="${idx}"></div>`;
+        }
+      );
+
       // Render markdown body
       const bodyHtml = marked.parse(processedBody);
 
@@ -200,6 +210,14 @@
         <div class="article-body">${bodyHtml}</div>
         ${tagsHtml}
       `;
+
+      // Replace milestone-table placeholders
+      document.querySelectorAll('.milestone-table-placeholder').forEach(el => {
+        const idx = parseInt(el.dataset.idx);
+        const data = milestoneTables[idx];
+        if (!data) { el.outerHTML = '<p style="color:#c00">表格数据解析失败</p>'; return; }
+        el.outerHTML = buildMilestoneTable(data);
+      });
 
       // Replace movie-table placeholders
       document.querySelectorAll('.movie-table-placeholder').forEach(el => {
@@ -399,6 +417,39 @@
           <table class="journey-table">
             <thead>
               <tr><th>一句话</th><th>经历</th><th>时间</th></tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>`;
+    }
+
+    function buildMilestoneTable(data) {
+      const escapeCell = value => String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+      const rows = data.map(m =>
+        `<tr data-month="${escapeCell(m.month)}">
+          <td>${escapeCell(m.month)}月</td>
+          <td>${escapeCell(m.books)}</td>
+          <td>${escapeCell(m.weight)}</td>
+          <td>${escapeCell(m.return)}</td>
+          <td>${escapeCell(m['350'])}</td>
+          <td>${escapeCell(m.career)}</td>
+        </tr>`
+      ).join('');
+
+      return `
+        <div class="movie-table-wrap">
+          <div class="movie-sort-bar">
+            排序：
+            <button class="movie-sort-btn sort-asc" data-field="month" data-order="asc">月份</button>
+          </div>
+          <table class="movie-table milestone-table">
+            <thead>
+              <tr><th>月份</th><th>看书12本</th><th>体重60kg</th><th>股市年化25%</th><th>350</th><th>关于职业</th></tr>
             </thead>
             <tbody>${rows}</tbody>
           </table>

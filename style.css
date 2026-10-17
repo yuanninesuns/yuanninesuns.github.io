@@ -403,6 +403,10 @@ button { font: inherit; }
 .journey-table tbody tr:hover { background: #f5f3f0; }
 .movie-table td:first-child,
 .movie-table th:first-child { color: var(--muted); font-size: .78rem; width: 36px; }
+.milestone-table { min-width: 620px; }
+.milestone-table th,
+.milestone-table td:first-child { white-space: nowrap; }
+.milestone-table td { font-variant-numeric: tabular-nums; }
 .journey-table .journey-quote { font-weight: 500; color: var(--text); width: 45%; line-height: 1.65; }
 .journey-table .journey-story { color: #666; font-size: .88rem; line-height: 1.65; }
 .journey-table .journey-year { color: var(--muted); font-size: .82rem; white-space: nowrap; width: 56px; text-align: center; }
