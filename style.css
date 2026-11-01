@@ -496,6 +496,14 @@ button { font: inherit; }
 .asset-diff.negative { color: #bf5b6a; }
 .asset-diff.zero { color: var(--muted); }
 
+/* ---- KaTeX math ---- */
+.article-body .katex-display {
+  margin: 1.2em 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 2px 0;
+}
+
 /* ---- Responsive ---- */
 @media (max-width: 600px) {
   .article-grid { grid-template-columns: 1fr; }

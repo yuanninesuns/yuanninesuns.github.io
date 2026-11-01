@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>文章 · 鲸的世界</title>
+  <link rel="stylesheet" href="katex/katex.min.css?v=0.19.1" />
   <link rel="stylesheet" href="style.css?v=20261017-milestone-center" />
 </head>
 <body>
@@ -26,6 +27,7 @@
 
   <!-- 固定版本、同站托管，避免第三方 CDN 不可用导致所有文章无法渲染。 -->
   <script src="marked.min.js?v=15.0.12"></script>
+  <script src="katex/katex.min.js?v=0.19.1"></script>
 
   <script>
     // Category label mapping
@@ -56,6 +58,77 @@
         meta[key] = val;
       });
       return { meta, body: match[2] };
+    }
+
+    // math placeholders: safe alphanumeric tokens that survive marked unchanged
+    const MATH_SEG_PATTERN = /MATHSEG(\d+)MATHSEG/g;
+
+    function escapeHtmlLite(value) {
+      return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    // Mask code blocks/spans so $ signs inside code are never treated as math
+    function maskCodeSegments(text) {
+      const segments = [];
+      const push = match => {
+        segments.push(match);
+        return `CODESEG${segments.length - 1}CODESEG`;
+      };
+      const masked = text
+        .replace(/(`{3,}|~{3,})[\s\S]*?\1/g, push)
+        .replace(/(`+)[^`\n]*?\1/g, push);
+      return { masked, segments };
+    }
+
+    // Replace LaTeX math ($$..$$, \(..\), \[..\], $..$) with placeholders
+    // Extraction must happen before marked.parse, which would otherwise
+    // mangle backslashes, underscores and special TeX characters.
+    function extractMathSegments(text) {
+      const { masked, segments: codeSegs } = maskCodeSegments(text);
+      const mathSegs = [];
+      const pushMath = (tex, displayMode) => {
+        const idx = mathSegs.length;
+        mathSegs.push({ tex: tex.trim(), displayMode });
+        return `MATHSEG${idx}MATHSEG`;
+      };
+
+      let processed = masked
+        .replace(/\$\$([\s\S]+?)\$\$/g, (_, tex) => pushMath(tex, true))
+        .replace(/\\\[([\s\S]+?)\\\]/g, (_, tex) => pushMath(tex, true))
+        .replace(/\\\(([\s\S]+?)\\\)/g, (_, tex) => pushMath(tex, false));
+
+      // Single-$ inline math. Guard against currency amounts: the content
+      // must not start with a digit or whitespace (GitHub's convention).
+      processed = processed.replace(/(?<!\\)\$([^$\n]+?)\$/g, (match, tex) => {
+        const looksLikeCurrency = /^[\s\d]/.test(tex) || /\s$/.test(tex);
+        if (looksLikeCurrency) return match;
+        return pushMath(tex, false);
+      });
+
+      processed = processed.replace(/CODESEG(\d+)CODESEG/g, (_, idx) => codeSegs[idx]);
+      return { processed, mathSegs };
+    }
+
+    function renderMathSegments(html, mathSegs) {
+      return html.replace(MATH_SEG_PATTERN, (_, idx) => {
+        const seg = mathSegs[Number(idx)];
+        if (!seg) return '';
+        if (!window.katex || typeof window.katex.renderToString !== 'function') {
+          return `<code>${escapeHtmlLite(seg.tex)}</code>`;
+        }
+        try {
+          return window.katex.renderToString(seg.tex, {
+            displayMode: seg.displayMode,
+            throwOnError: false
+          });
+        } catch (e) {
+          return `<code>${escapeHtmlLite(seg.tex)}</code>`;
+        }
+      });
     }
 
     async function fetchTextWithRetry(src, retries = 3) {
@@ -174,8 +247,10 @@
         }
       );
 
-      // Render markdown body
-      const bodyHtml = marked.parse(processedBody);
+      // Extract math first, render markdown, then swap placeholders for KaTeX HTML
+      const { processed: mathProcessed, mathSegs } = extractMathSegments(processedBody);
+      let bodyHtml = marked.parse(mathProcessed);
+      bodyHtml = renderMathSegments(bodyHtml, mathSegs);
 
       document.getElementById('articleContent').innerHTML = `
         <div class="article-header">
