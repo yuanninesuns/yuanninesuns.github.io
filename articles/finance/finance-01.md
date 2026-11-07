@@ -57,6 +57,25 @@ tags: [探索, 财富]
 - 看线做高抛低吸
 
 
+
+```asset-allocation
+[
+  { "name": "沪深300",   "target": 10},
+  { "name": "中证500",   "target": 5},
+  { "name": "中证1000",   "target": 5},
+  { "name": "中证2000",    "target": 5},
+  { "name": "科创50",   "target": 5},
+  { "name": "创业板",   "target": 5},
+  { "name": "恒生科技",   "target": 10},
+  { "name": "纳指", "target": 5},
+  { "name": "标普", "target": 5},
+  { "name": "道琼斯", "target": 5},
+  { "name": "德国", "target": 5},
+  { "name": "日本", "target": 5},
+  { "name": "黄金", "target": 5}
+]
+```
+
 ---
 
 
